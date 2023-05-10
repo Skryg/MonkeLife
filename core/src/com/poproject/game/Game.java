@@ -13,19 +13,26 @@ public class Game extends ApplicationAdapter {
 	Texture img;
 	List<GameObject> gameObjects = new LinkedList<>();
 	static Game instance = null;
+
 	@Override
 	public void create () {
-		if(instance == null)instance = this;
+		if(instance != null) instance = this;
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		GameObject.instantiate(new Player());
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+
+		for (GameObject g : gameObjects){
+			g.update();
+		}
+
+//		batch.begin();
+//		batch.draw(img, 0, 0);
+//		batch.end();
 	}
 	
 	@Override

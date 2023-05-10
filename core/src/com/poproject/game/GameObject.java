@@ -1,17 +1,21 @@
 package com.poproject.game;
-
 public class GameObject {
-    static GameObject Instantiate(){
-        GameObject go = new GameObject();
+    //children      ???
+    //parent        ???
+    //components:   ???
+    //-Sprite renderer
+    //-Position
+    //-Collider
+    //-Physics
+    static GameObject instantiate(GameObject go){
         Game.instance.gameObjects.add(go);
+        go.start();
         return go;
     }
-    void Start(){
-
+    void start(){}
+    void update(){}
+    void lateUpdate(){}
+    void destroy(){
+        Game.instance.gameObjects.remove(this);
     }
-    void Update(){
-
-    }
-
-
 }
