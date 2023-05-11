@@ -1,4 +1,5 @@
 package com.poproject.game;
+
 public class GameObject {
     //children      ???
     //parent        ???
