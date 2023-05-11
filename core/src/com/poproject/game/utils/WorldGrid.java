@@ -21,7 +21,6 @@ public class WorldGrid <T>{
         int y = Math.round((pos.y - origin.y)/cellSize);
         grid.setCell(x,y,val);
     }
-
     public void resize(int width, int height){
         grid.resize(width, height);
     }
