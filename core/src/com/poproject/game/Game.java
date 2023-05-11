@@ -4,6 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.poproject.game.views.MainScreen;
+
+import jdk.tools.jmod.Main;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,8 +20,11 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		if(instance == null)instance = this;
+		MainScreen mainScreen = new MainScreen(this);
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+
+
 	}
 
 	@Override
