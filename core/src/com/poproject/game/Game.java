@@ -5,12 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
-	
+	List<GameObject> gameObjects = new LinkedList<>();
+	static Game instance = null;
 	@Override
 	public void create () {
+		if(instance == null)instance = this;
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 	}
