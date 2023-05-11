@@ -18,6 +18,7 @@ public class Game extends ApplicationAdapter {
 		if(instance == null)instance = this;
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+
 	}
 
 	@Override
