@@ -9,7 +9,7 @@ public class GameObject {
     //-Collider
     //-Physics
     static GameObject instantiate(GameObject go){
-        Game.instance.gameObjects.add(go);
+//        Game.instance.gameObjects.add(go);
         go.start();
         return go;
     }
@@ -17,6 +17,6 @@ public class GameObject {
     void update(){}
     void lateUpdate(){}
     void destroy(){
-        Game.instance.gameObjects.remove(this);
+//        Game.instance.gameObjects.remove(this);
     }
 }
