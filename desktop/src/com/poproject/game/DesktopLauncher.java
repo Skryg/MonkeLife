@@ -2,7 +2,6 @@ package com.poproject.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.poproject.game.Game;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -12,6 +11,6 @@ public class DesktopLauncher {
 		config.useVsync(true);
 
 		config.setTitle("po-game");
-		new Lwjgl3Application(new Game(), config);
+		new Lwjgl3Application(new ProjectGame(), config);
 	}
 }
