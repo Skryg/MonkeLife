@@ -33,18 +33,6 @@ public class PlayerControlSystem extends IteratingSystem{
         Box2dBodyComponent b2body = bodm.get(entity);
         StateComponent state = sm.get(entity);
 
-//        if(b2body.body.getLinearVelocity().y > 0){
-//            state.set(FALLING);
-//        }
-
-//        if(b2body.body.getLinearVelocity().y == 0){
-//            if(state.get() == StateComponent.STATE_FALLING){
-//                state.set(StateComponent.STATE_NORMAL);
-//            }
-//            if(b2body.body.getLinearVelocity().x != 0){
-//                state.set(StateComponent.STATE_MOVING);
-//            }
-//        }
 
 
         if(controller.left){
@@ -67,9 +55,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if(controller.up &&
                 (state.get() == StateComponent.State.NORMAL || state.get() == StateComponent.State.MOVING)){
-            //b2body.body.applyForceToCenter(0, 3000,true);
             b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
-            //state.set(StateComponent.STATE_JUMPING);
         }
     }
 }

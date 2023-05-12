@@ -54,7 +54,7 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<TransformComponent> transformM;
 
     @SuppressWarnings("unchecked")
-    public RenderingSystem(SpriteBatch batch) {
+    public RenderingSystem() {
         // gets all entities with a TransformComponent and TextureComponent
         super(Family.all(TransformComponent.class, TextureComponent.class).get(), new ZComparator());
 
