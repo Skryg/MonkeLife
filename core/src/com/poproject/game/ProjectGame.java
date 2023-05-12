@@ -7,9 +7,6 @@ import com.poproject.game.views.MainScreen;
 import com.poproject.game.views.MenuScreen;
 import com.poproject.game.views.PreferencesScreen;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class ProjectGame extends Game {
 	public enum ScreenType {
 		MENU,
@@ -30,7 +27,6 @@ public class ProjectGame extends Game {
 		LoadingScreen loadingScreen = new LoadingScreen(this);
 		preferences = new AppPreferences();
 		setScreen(loadingScreen);
-
 	}
 
 	@Override
@@ -40,9 +36,7 @@ public class ProjectGame extends Game {
 
 	@Override
 	public void dispose () {
-		batch.dispose();
 		super.dispose();
-//		img.dispose();
 	}
 
 	public void changeScreen(ScreenType screen){
