@@ -1,10 +1,6 @@
 package com.poproject.game;
 
 import com.badlogic.ashley.core.Engine;
-import com.poproject.game.entity.systems.AnimationSystem;
-import com.poproject.game.entity.systems.CollisionSystem;
-import com.poproject.game.entity.systems.PlayerControlSystem;
-import com.poproject.game.entity.systems.RenderingSystem;
 
 public class GameEngine extends Engine {
     private Engine engine;

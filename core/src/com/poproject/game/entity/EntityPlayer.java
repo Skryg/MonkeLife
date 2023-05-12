@@ -1,4 +1,4 @@
-package com.poproject.game.entity.components;
+package com.poproject.game.entity;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,9 +17,5 @@ public class EntityPlayer{
         public float speed;
         public float direction;
     }
-
-
-
-
 
 }
