@@ -1,8 +1,8 @@
 package com.poproject.game.entity.systems;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.poproject.game.entity.components.TextureComponent;
 import com.poproject.game.entity.components.AnimationComponent;
+import com.poproject.game.entity.components.TextureComponent;
 import com.poproject.game.entity.components.StateComponent;
 
 import com.badlogic.ashley.core.ComponentMapper;
