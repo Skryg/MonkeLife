@@ -17,7 +17,6 @@ public class ProjectGame extends Game {
 	private MenuScreen menuScreen;
 	private MainScreen mainScreen;
 	private PreferencesScreen preferencesScreen;
-
 	private AppPreferences preferences;
 
 	SpriteBatch batch;

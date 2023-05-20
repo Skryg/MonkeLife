@@ -44,7 +44,6 @@ public class PlayerControlSystem extends IteratingSystem {
         }
         if(controller.down){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().y, 5f, 0.2f),b2body.body.getLinearVelocity().y);
-
         }
 
         if(!controller.left && !controller.right && !controller.up && !controller.down){
