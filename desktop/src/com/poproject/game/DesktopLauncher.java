@@ -1,6 +1,5 @@
 package com.poproject.game;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.poproject.game.ProjectGame;
@@ -10,8 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		//config.setMaximized(true);
-		//config.useVsync(true);
+		config.useVsync(true);
 
 		config.setTitle("po-game");
 		new Lwjgl3Application(new ProjectGame(), config);
