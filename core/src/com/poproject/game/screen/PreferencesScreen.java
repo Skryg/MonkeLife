@@ -1,4 +1,4 @@
-package com.poproject.game.views;
+package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -59,7 +59,7 @@ public class PreferencesScreen implements Screen {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(ProjectGame.ScreenType.MENU);
+                parent.setScreen(ScreenType.MENU);
             }
         });
 

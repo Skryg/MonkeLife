@@ -1,4 +1,4 @@
-package com.poproject.game.views;
+package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -50,14 +50,14 @@ public class MenuScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(ProjectGame.ScreenType.APPLICATION);
+                parent.setScreen(ScreenType.GAME);
             }
         });
 
         preferences.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(ProjectGame.ScreenType.PREFERENCES);
+                parent.setScreen(ScreenType.PREFERENCES);
             }
         });
     }

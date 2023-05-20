@@ -24,6 +24,8 @@ public class ProjectGame extends Game {
 	private World world;
 	private Box2DDebugRenderer box2DDebugRenderer;
 	private float accumulator;
+	private AppPreferences preferences;
+
 
 	public static final short BIT_BOX = 1 << 0;
 	public static final short BIT_CIRCLE = 1 << 1;
