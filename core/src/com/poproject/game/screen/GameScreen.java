@@ -41,7 +41,7 @@ public class GameScreen extends AbstractScreen {
         fixtureDef.density = 1;
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.2f;
+        fixtureDef.friction = 0.69f;
         fixtureDef.filter.categoryBits = BIT_PLAYER;
         fixtureDef.filter.maskBits = BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
@@ -60,7 +60,7 @@ public class GameScreen extends AbstractScreen {
 
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.2f;
+        fixtureDef.friction = 0.69f;
         fixtureDef.filter.categoryBits = BIT_GROUND;
         fixtureDef.filter.maskBits = -1;
         final ChainShape chainShape = new ChainShape();

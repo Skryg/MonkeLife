@@ -18,5 +18,4 @@ public class WorldObjectEntity extends Entity {
     WorldObjectEntity(Vector3 position){
         add(new TransformComponent(position));
     }
-
 }
