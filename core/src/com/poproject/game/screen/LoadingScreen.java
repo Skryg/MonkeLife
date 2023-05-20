@@ -12,8 +12,7 @@ public class LoadingScreen extends AbstractScreen {
         super(context);
 
         assetManager = context.getAssetManager();
-        assetManager.load("map/map1.tmx", TiledMap.class);
-
+        assetManager.load("map/mapaProjekt.tmx", TiledMap.class);
     }
     @Override
     public void show() {
