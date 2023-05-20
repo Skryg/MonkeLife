@@ -2,8 +2,12 @@ package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.poproject.game.ProjectGame;
 
@@ -12,67 +16,62 @@ import static com.poproject.game.ProjectGame.*;
 public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
-
+    private final Vector2 playerStartPosition = new Vector2(4.5f, 3f);
+    private final Body player;
+    private final AssetManager assetManager;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private final OrthographicCamera gameCamera;
     public GameScreen(final ProjectGame context){
         super(context);
+
+        assetManager = context.getAssetManager();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
+        gameCamera = context.getGameCamera();
 
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
-        ///circle
-        bodyDef.position.set(4.5f, 15f);
+        //create Player
+        bodyDef.position.set(playerStartPosition);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        Body body = world.createBody(bodyDef);
+        player = world.createBody(bodyDef);
+        player.setUserData("PLAYER");
 
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.5f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_CIRCLE;
-        fixtureDef.filter.maskBits = BIT_GROUND | BIT_BOX;
-        CircleShape circleShape = new CircleShape();
-        fixtureDef.shape = circleShape;
-        circleShape.setRadius(0.5f);
-        body.createFixture(fixtureDef);
-        circleShape.dispose();
-
-    /////BOX
-        bodyDef.position.set(5.3f, 6f);
-        bodyDef.gravityScale = 1f;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(bodyDef);
-
+        fixtureDef.density = 1;
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_BOX;
-        fixtureDef.filter.maskBits = BIT_GROUND | BIT_CIRCLE;
-        PolygonShape polygonShape = new PolygonShape();
-        polygonShape.setAsBox(0.5f, 0.5f);
-        fixtureDef.shape = polygonShape;
-        body.createFixture(fixtureDef);
-        polygonShape.dispose();
+        fixtureDef.friction = 0.69f;
+        fixtureDef.filter.categoryBits = BIT_PLAYER;
+        fixtureDef.filter.maskBits = BIT_GROUND;
+        final PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(0.5f, 0.5f);
+        fixtureDef.shape = pShape;
+        player.createFixture(fixtureDef);
+        pShape.dispose();
 
-        //platform
-        bodyDef.position.set(4.5f, 2f);
-        bodyDef.gravityScale = 1f;
+        //create room
+
+        bodyDef.position.set(0,0);
+        bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        body = world.createBody(bodyDef);
+        final Body body = world.createBody(bodyDef);
+        player.setUserData("GROUND");
 
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.42f;
+        fixtureDef.friction = 0.69f;
         fixtureDef.filter.categoryBits = BIT_GROUND;
         fixtureDef.filter.maskBits = -1;
-        polygonShape = new PolygonShape();
-        polygonShape.setAsBox(4f, 0.5f);
-        fixtureDef.shape = polygonShape;
+        final ChainShape chainShape = new ChainShape();
+        chainShape.createLoop(new float[]{1,1,1,15,8,15,8,1});
+        fixtureDef.shape = chainShape;
         body.createFixture(fixtureDef);
-        polygonShape.dispose();
+        chainShape.dispose();
     }
     @Override
     public void show() {
-
+        mapRenderer.setMap(assetManager.get("map/map1.tmx", TiledMap.class));
     }
 
     @Override
@@ -80,29 +79,34 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        float speedX = 0;
+        float speedY = 0;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) speedX += -3f;
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 3f;
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
+
+        player.applyLinearImpulse((speedX - player.getLinearVelocity().x)*player.getMass(),
+                (speedY - player.getLinearVelocity().y)*player.getMass(),
+                player.getWorldCenter().x, player.getWorldCenter().y, true);
+
         viewport.apply(true);
+        mapRenderer.setView(gameCamera);
+        mapRenderer.render();
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
-//        world.step(delta, 6, 2);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A))context.setScreen(ScreenType.LOADING);
+//        if(Gdx.input.isKeyPressed(Input.Keys.Q))context.setScreen(ScreenType.LOADING);
     }
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-
-    }
+    public void hide() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }
