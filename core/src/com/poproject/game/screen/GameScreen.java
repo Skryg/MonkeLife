@@ -71,7 +71,7 @@ public class GameScreen extends AbstractScreen {
     }
     @Override
     public void show() {
-        mapRenderer.setMap(assetManager.get("map/map1.tmx", TiledMap.class));
+        mapRenderer.setMap(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
     }
 
     @Override
