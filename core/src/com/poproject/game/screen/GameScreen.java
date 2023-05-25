@@ -35,6 +35,7 @@ public class GameScreen extends AbstractScreen {
         bodyDef.position.set(playerStartPosition);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.fixedRotation = true;
         player = world.createBody(bodyDef);
         player.setUserData("PLAYER");
 
@@ -44,6 +45,7 @@ public class GameScreen extends AbstractScreen {
         fixtureDef.friction = 0.69f;
         fixtureDef.filter.categoryBits = BIT_PLAYER;
         fixtureDef.filter.maskBits = BIT_GROUND;
+
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.5f, 0.5f);
         fixtureDef.shape = pShape;
@@ -107,6 +109,9 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void hide() {}
 
+    public void resize(final int width, final int height){
+        context.getScreenViewport().update(width, height);
+    }
     @Override
     public void dispose() {}
 }

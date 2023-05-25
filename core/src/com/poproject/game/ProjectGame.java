@@ -117,10 +117,6 @@ public class ProjectGame extends Game {
 		final float alpha = accumulator / FIXED_TIME_STEP;
 	}
 
-	@Override
-	public void resize(final int width, final int height){
-		screenViewport.update(width, height);
-	}
 
 	public AppPreferences getPreferences(){
 		return preferences;
