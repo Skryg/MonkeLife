@@ -1,12 +1,12 @@
-package com.poproject.game.entity;
+package com.poproject.game.ETCS.entities;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.poproject.game.entity.components.TextureComponent;
-import com.poproject.game.entity.components.TransformComponent;
+import com.poproject.game.ETCS.components.TextureComponent;
+import com.poproject.game.ETCS.components.TransformComponent;
 
 public class WorldObjectEntity extends Entity {
     public WorldObjectEntity(){

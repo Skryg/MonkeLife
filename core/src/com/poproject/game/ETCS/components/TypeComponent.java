@@ -1,4 +1,4 @@
-package com.poproject.game.entity.components;
+package com.poproject.game.ETCS.components;
 
 import com.badlogic.ashley.core.Component;
 

@@ -1,13 +1,13 @@
-package com.poproject.game.entity.systems;
+package com.poproject.game.ETCS.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.poproject.game.entity.components.AnimationComponent;
-import com.poproject.game.entity.components.StateComponent;
-import com.poproject.game.entity.components.TextureComponent;
+import com.poproject.game.ETCS.components.AnimationComponent;
+import com.poproject.game.ETCS.components.StateComponent;
+import com.poproject.game.ETCS.components.TextureComponent;
 
 public class AnimationSystem extends IteratingSystem {
     ComponentMapper<TextureComponent> tm;

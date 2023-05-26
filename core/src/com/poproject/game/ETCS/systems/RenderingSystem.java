@@ -1,4 +1,4 @@
-package com.poproject.game.entity.systems;
+package com.poproject.game.ETCS.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.poproject.game.entity.components.TextureComponent;
-import com.poproject.game.entity.components.TransformComponent;
+import com.poproject.game.ETCS.components.TextureComponent;
+import com.poproject.game.ETCS.components.TransformComponent;
 
 import java.util.Comparator;
 

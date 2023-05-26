@@ -4,10 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.poproject.game.B2dModel;
+import com.poproject.game.garbage.B2dModel;
 import com.poproject.game.ProjectGame;
-
-import java.util.Calendar;
 
 public class MainScreen implements Screen {
     ProjectGame game;

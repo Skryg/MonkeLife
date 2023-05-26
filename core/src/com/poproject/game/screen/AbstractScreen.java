@@ -9,14 +9,12 @@ import com.poproject.game.ProjectGame;
 public abstract class AbstractScreen implements Screen {
     protected final ProjectGame context;
     protected final FitViewport viewport;
-    protected final World world;
-    protected final Box2DDebugRenderer box2DDebugRenderer;
+//    protected final Box2DDebugRenderer box2DDebugRenderer;
 
     public AbstractScreen(final ProjectGame context){
         this.context = context;
         viewport = context.getScreenViewport();
-        world = context.getWorld();
-        box2DDebugRenderer = context.getBox2DDebugRenderer();
+//        box2DDebugRenderer = context.getBox2DDebugRenderer();
     }
 
     public void resize(final int width, final int height){

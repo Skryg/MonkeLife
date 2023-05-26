@@ -1,38 +1,39 @@
-package com.poproject.game.entity.systems;
+package com.poproject.game.ETCS.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.MathUtils;
+import com.poproject.game.ETCS.GameEngine;
 import com.poproject.game.KeyboardController;
-import com.poproject.game.entity.components.Box2dBodyComponent;
-import com.poproject.game.entity.components.PlayerComponent;
-import com.poproject.game.entity.components.StateComponent;
+import com.poproject.game.ETCS.components.Box2dBodyComponent;
+import com.poproject.game.ETCS.components.PlayerComponent;
+import com.poproject.game.ETCS.components.StateComponent;
+import com.poproject.game.ProjectGame;
 
 public class PlayerControlSystem extends IteratingSystem {
-
-    ComponentMapper<PlayerComponent> pm;
-    ComponentMapper<Box2dBodyComponent> playerBody;
-    ComponentMapper<StateComponent> sm;
-    KeyboardController controller;
+//    ComponentMapper<StateComponent> sm;
+//    KeyboardController controller;
 
 
     @SuppressWarnings("unchecked")
-    public PlayerControlSystem(KeyboardController keyCon) {
+    public PlayerControlSystem() { //KeyboardController keyCon
         super(Family.all(PlayerComponent.class).get());
-        controller = keyCon;
-        pm = ComponentMapper.getFor(PlayerComponent.class);
-        playerBody = ComponentMapper.getFor(Box2dBodyComponent.class);
-        sm = ComponentMapper.getFor(StateComponent.class);
+//        ProjectGame.instance.
+//        controller = keyCon;
+//        pm = ComponentMapper.getFor(PlayerComponent.class);
+//        playerBody = ComponentMapper.getFor(Box2dBodyComponent.class);
+//        sm = ComponentMapper.getFor(StateComponent.class);
     }
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        Box2dBodyComponent b2body = playerBody.get(entity);
-        StateComponent state = sm.get(entity);
+//        Box2dBodyComponent b2body = playerBody.get(entity);
+//        StateComponent state = sm.get(entity);
+
+        final PlayerComponent playerComponent = GameEngine.playerComponentMapper.get(entity);
+        final Box2dBodyComponent b2body = GameEngine.box2dBodyComponentComponentMapper.get(entity);
 
         float speedX = 0;
         float speedY = 0;

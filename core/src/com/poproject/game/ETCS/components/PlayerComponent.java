@@ -1,8 +1,9 @@
-package com.poproject.game.entity.components;
+package com.poproject.game.ETCS.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.utils.Pool;
 
-public class PlayerComponent implements Component {
+public class PlayerComponent implements Component, Pool.Poolable {
     public String name;
     public int level;
     public int healthPoints;
@@ -16,5 +17,10 @@ public class PlayerComponent implements Component {
         manaPoints = 100;
         strength = 10;
         speed = 20;
+    }
+
+    @Override
+    public void reset() {
+
     }
 }

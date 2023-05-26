@@ -1,13 +1,12 @@
-package com.poproject.game.entity.systems;
+package com.poproject.game.ETCS.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.poproject.game.entity.components.CollisionComponent;
-import com.poproject.game.entity.components.PlayerComponent;
-import com.poproject.game.entity.components.TypeComponent;
-import com.poproject.game.entity.components.CollisionComponent;
+import com.poproject.game.ETCS.components.CollisionComponent;
+import com.poproject.game.ETCS.components.PlayerComponent;
+import com.poproject.game.ETCS.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
     ComponentMapper<CollisionComponent> cm;

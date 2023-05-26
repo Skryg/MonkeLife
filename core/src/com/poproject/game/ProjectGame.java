@@ -25,34 +25,26 @@ import java.util.EnumMap;
 public class ProjectGame extends Game {
 	private EnumMap<ScreenType, Screen> screenCache;
 	private FitViewport screenViewport;
-	private World world;
-	private Box2DDebugRenderer box2DDebugRenderer;
-	private WorldContactListener worldContactListener;
 	private AssetManager assetManager;
 	private OrthographicCamera gameCamera;
 	private SpriteBatch spriteBatch;
 	private float accumulator;
 	private AppPreferences preferences;
 
-
+	public static ProjectGame instance;
 	public static final float UNIT_SCALE = 1/1024f;
-	public static final short BIT_BOX = 1 << 0;
-	public static final short BIT_CIRCLE = 1 << 1;
 	public static final short BIT_GROUND = 1 << 2;
 	public static final short BIT_PLAYER = 1 << 3;
 	public static final float FIXED_TIME_STEP = 1/60f;
 
 	public void create(){
-
+		if(instance == null)instance = this;
 		spriteBatch = new SpriteBatch();
 		accumulator = 0f;
 
-		//box2d
-		Box2D.init();
-		world = new World(new Vector2(0, 0f), false);
-		worldContactListener = new WorldContactListener();
-		world.setContactListener(worldContactListener);
-		box2DDebugRenderer = new Box2DDebugRenderer();
+
+//		box2d
+//		world = new World(new Vector2(0, 0f), false);
 		preferences = new AppPreferences();
 
 		//assets
@@ -83,42 +75,34 @@ public class ProjectGame extends Game {
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
 	public OrthographicCamera getGameCamera(){return gameCamera;}
-	public WorldContactListener getWorldContactListener(){return worldContactListener;}
+//	public WorldContactListener getWorldContactListener(){return worldContactListener;}
 
 	public FitViewport getScreenViewport() {
 		return screenViewport;
 	}
 
-	public World getWorld(){
-		return world;
-	}
+//	public World getWorld(){
+//		return world;
+//	}
 
-	public Box2DDebugRenderer getBox2DDebugRenderer(){
-		return box2DDebugRenderer;
-	}
+//	public Box2DDebugRenderer getBox2DDebugRenderer(){return box2DDebugRenderer;}
 
 	public void dispose(){
 		super.dispose();
-		world.dispose();
-		box2DDebugRenderer.dispose();
+//		world.dispose();
+//		box2DDebugRenderer.dispose();
 		assetManager.dispose();
 	}
 
 	public void render(){
 		super.render();
 
-		accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
-		while(accumulator >= FIXED_TIME_STEP){
-			world.step(FIXED_TIME_STEP, 6, 2);
-			accumulator -= FIXED_TIME_STEP;
-		}
-		//for interpolation
-		final float alpha = accumulator / FIXED_TIME_STEP;
-	}
 
+		//for interpolation
+//		final float alpha = accumulator / FIXED_TIME_STEP;
+	}
 
 	public AppPreferences getPreferences(){
 		return preferences;
 	}
-
 }

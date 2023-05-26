@@ -1,7 +1,6 @@
-package com.poproject.game.entity;
+package com.poproject.game.ETCS.entities;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.graphics.Texture;
 
 public class EntityPlayer{
 
