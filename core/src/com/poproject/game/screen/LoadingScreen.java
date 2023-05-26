@@ -24,7 +24,7 @@ public class LoadingScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0,1,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(assetManager.update())context.setScreen(ScreenType.MENU);
+        if(assetManager.update())context.setScreen(ScreenType.GAME);
         //if(Gdx.input.isKeyPressed(Input.Keys.Q))context.setScreen(ScreenType.GAME);
     }
 

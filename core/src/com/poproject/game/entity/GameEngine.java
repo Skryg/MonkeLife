@@ -1,6 +1,7 @@
-package com.poproject.game;
+package com.poproject.game.entity;
 
 import com.badlogic.ashley.core.Engine;
+import com.poproject.game.KeyboardController;
 import com.poproject.game.entity.systems.AnimationSystem;
 import com.poproject.game.entity.systems.CollisionSystem;
 import com.poproject.game.entity.systems.PlayerControlSystem;

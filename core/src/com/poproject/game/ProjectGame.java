@@ -65,8 +65,7 @@ public class ProjectGame extends Game {
 		gameCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(9, 16, gameCamera);
 		screenCache = new EnumMap<>(ScreenType.class);
-		setScreen(ScreenType.LOADING);
-//		setScreen(new LoadingScreen(this));
+		setScreen(ScreenType.MENU);
 	}
 
 	public void setScreen(final ScreenType screenType){

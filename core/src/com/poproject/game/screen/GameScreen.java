@@ -53,7 +53,7 @@ public class GameScreen extends AbstractScreen {
         pShape.dispose();
 
         //create room
-
+        
         bodyDef.position.set(0,0);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -81,17 +81,17 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        float speedX = 0;
-        float speedY = 0;
+//        float speedX = 0;
+//        float speedY = 0;
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.A)) speedX += -3f;
+//        if(Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 3f;
+//        if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
+//        if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) speedX += -3f;
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 3f;
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
-
-        player.applyLinearImpulse((speedX - player.getLinearVelocity().x)*player.getMass(),
-                (speedY - player.getLinearVelocity().y)*player.getMass(),
-                player.getWorldCenter().x, player.getWorldCenter().y, true);
+//        player.applyLinearImpulse((speedX - player.getLinearVelocity().x)*player.getMass(),
+//                (speedY - player.getLinearVelocity().y)*player.getMass(),
+//                player.getWorldCenter().x, player.getWorldCenter().y, true);
 
         viewport.apply(true);
         mapRenderer.setView(gameCamera);

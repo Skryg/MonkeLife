@@ -1,5 +1,6 @@
 package com.poproject.game;
 
+import com.badlogic.gdx.math.Octree;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -75,7 +76,6 @@ public class B2dModel {
         shape.dispose();
 
         bodyk.setLinearVelocity(0,0.75f);
-
 
     }
 }
