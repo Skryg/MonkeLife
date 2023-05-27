@@ -23,7 +23,7 @@ public class PlayerControlSystem extends IteratingSystem {
 
     @SuppressWarnings("unchecked")
     public PlayerControlSystem() { //KeyboardController keyCon
-        super(Family.all(PlayerComponent.class).get());
+        super(Family.all(PlayerComponent.class, Box2dBodyComponent.class).get());
 //        ProjectGame.instance.
 //        controller = keyCon;
 //        pm = ComponentMapper.getFor(PlayerComponent.class);
@@ -49,13 +49,5 @@ public class PlayerControlSystem extends IteratingSystem {
         b2body.body.applyLinearImpulse((speedX - b2body.body.getLinearVelocity().x)* b2body.body.getMass(),
                 (speedY - b2body.body.getLinearVelocity().y)* b2body.body.getMass(),
                 b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-
-        float lerp = 2f;
-        Vector2 playerPosition = b2body.body.getPosition();
-        OrthographicCamera camera = ProjectGame.getInstance().getGameCamera();
-        Vector3 position = camera.position;
-        position.x += (playerPosition.x - position.x) * lerp * deltaTime;
-        position.y += (playerPosition.y - position.y) * lerp * deltaTime;
-        camera.update();
     }
 }

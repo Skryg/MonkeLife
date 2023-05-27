@@ -4,16 +4,18 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.poproject.game.ETCS.components.Box2dBodyComponent;
+import com.poproject.game.ETCS.components.CameraComponent;
 import com.poproject.game.ETCS.components.PlayerComponent;
+import com.poproject.game.ETCS.systems.*;
 import com.poproject.game.KeyboardController;
-import com.poproject.game.ETCS.systems.AnimationSystem;
-import com.poproject.game.ETCS.systems.CollisionSystem;
-import com.poproject.game.ETCS.systems.PlayerControlSystem;
-import com.poproject.game.ETCS.systems.RenderingSystem;
+import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
+import com.poproject.game.map.CollisionArea;
 import com.poproject.game.screen.GameScreen;
 
 import static com.poproject.game.ProjectGame.BIT_GROUND;
@@ -22,6 +24,7 @@ import static com.poproject.game.ProjectGame.BIT_PLAYER;
 public class GameEngine extends PooledEngine {
     public static ComponentMapper<PlayerComponent> playerComponentMapper = ComponentMapper.getFor(PlayerComponent.class);
     public static ComponentMapper<Box2dBodyComponent> box2dBodyComponentComponentMapper = ComponentMapper.getFor(Box2dBodyComponent.class);
+    public static ComponentMapper<CameraComponent> cameraComponentMapper = ComponentMapper.getFor(CameraComponent.class);
     private final Vector2 playerStartPosition = new Vector2(4.5f, 3f);
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
@@ -37,6 +40,7 @@ public class GameEngine extends PooledEngine {
         fixtureDef = new FixtureDef();
         bodyDef = new BodyDef();
         this.addSystem(new PlayerControlSystem());//controller
+        this.addSystem(new CamFollowPlayerSystem());
     }
 
     public void spawnPlayer(){
@@ -70,15 +74,44 @@ public class GameEngine extends PooledEngine {
 
         box2dBodyComponent.body = playerBody;
         playerEntity.add(box2dBodyComponent);
-        addEntity(playerEntity);
-    }
 
+        //camera system
+        CameraComponent camCmp = createComponent(CameraComponent.class);
+        camCmp.camera = ProjectGame.getInstance().getGameCamera();
+        playerEntity.add(camCmp);
+
+        addEntity(playerEntity);
+//        cameraComponent();
+    }
+//    private void cameraComponent(){
+//        Entity cameraEntity = createEntity();
+//        addEntity(cameraEntity);
+//    }
+
+    private void createCollisionArea(CollisionArea ca){
+        resetBodyAndFixtureDef();
+        bodyDef.position.set(ca.getStartX(), ca.getStartY());
+        bodyDef.gravityScale = 0;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        final Body body = world.createBody(bodyDef);
+
+        fixtureDef.filter.categoryBits = BIT_GROUND;
+        fixtureDef.filter.maskBits = -1;
+        final ChainShape chainShape = new ChainShape();
+        chainShape.createChain(ca.getVertices());
+        fixtureDef.shape = chainShape;
+        body.createFixture(fixtureDef);
+
+        chainShape.dispose();
+    }
+    public void createCollisionAreas(Array<CollisionArea> collisionAreas){
+        for(CollisionArea ca : collisionAreas)createCollisionArea(ca);
+    }
     private void resetBodyAndFixtureDef(){
         bodyDef.gravityScale = 1;
         bodyDef.position.set(0,0);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
-        bodyDef.active = true;
 
         fixtureDef.density = 1;
         fixtureDef.filter.maskBits = 0;
@@ -88,4 +121,6 @@ public class GameEngine extends PooledEngine {
         fixtureDef.isSensor = false;
         fixtureDef.shape = null;
     }
+
+
 }

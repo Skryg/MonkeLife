@@ -9,9 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.poproject.game.ETCS.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
+import com.poproject.game.map.CollisionArea;
+import com.poproject.game.map.Map;
 
 import static com.poproject.game.ProjectGame.*;
 
@@ -25,6 +28,7 @@ public class GameScreen extends AbstractScreen {
     private final Box2DDebugRenderer box2DDebugRenderer; //moze lepiej w scenie???
     private final WorldContactListener worldContactListener;
     private final World world;
+    private final Map map;
     private float accumulator;
     public GameScreen(final ProjectGame context){
         super(context);
@@ -39,27 +43,15 @@ public class GameScreen extends AbstractScreen {
         world.setContactListener(worldContactListener);
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
+        map = new Map(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
+        spawnCollisionAreas();
 //        bodyDef = new BodyDef();
 //        fixtureDef = new FixtureDef();
+    }
 
-        //create room
-        
-//        bodyDef.position.set(0,0);
-//        bodyDef.gravityScale = 1;
-//        bodyDef.type = BodyDef.BodyType.StaticBody;
-//        final Body body = world.createBody(bodyDef);
-//        player.setUserData("GROUND");
-//
-//        fixtureDef.isSensor = false;
-//        fixtureDef.restitution = 0;
-//        fixtureDef.friction = 0.69f;
-//        fixtureDef.filter.categoryBits = BIT_GROUND;
-//        fixtureDef.filter.maskBits = -1;
-//        final ChainShape chainShape = new ChainShape();
-//        chainShape.createLoop(new float[]{1,1,1,15,8,15,8,1});
-//        fixtureDef.shape = chainShape;
-//        body.createFixture(fixtureDef);
-//        chainShape.dispose();
+    private void spawnCollisionAreas(){
+        Array<CollisionArea> collisionAreas = map.getCollisionAreas();
+        gameEngine.createCollisionAreas(collisionAreas);
     }
     @Override
     public void show() {
