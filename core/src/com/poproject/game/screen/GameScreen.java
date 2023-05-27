@@ -64,6 +64,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void show() {
         mapRenderer.setMap(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
@@ -77,19 +78,8 @@ public class GameScreen extends AbstractScreen {
             world.step(FIXED_TIME_STEP, 6, 2);
             accumulator -= FIXED_TIME_STEP;
         }
-//        float speedX = 0;
-//        float speedY = 0;
-//
-//        if(Gdx.input.isKeyPressed(Input.Keys.A)) speedX += -3f;
-//        if(Gdx.input.isKeyPressed(Input.Keys.D)) speedX += 3f;
-//        if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
-//        if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
 
-//        player.applyLinearImpulse((speedX - player.getLinearVelocity().x)*player.getMass(),
-//                (speedY - player.getLinearVelocity().y)*player.getMass(),
-//                player.getWorldCenter().x, player.getWorldCenter().y, true);
-
-        viewport.apply(true);
+        viewport.apply(false);
         mapRenderer.setView(gameCamera);
         mapRenderer.render();
         box2DDebugRenderer.render(world, viewport.getCamera().combined);

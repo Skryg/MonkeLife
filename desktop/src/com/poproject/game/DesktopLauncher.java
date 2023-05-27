@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.useVsync(true);
-
+		config.setMaximized(true);
 		config.setTitle("po-game");
 		new Lwjgl3Application(new ProjectGame(), config);
 	}

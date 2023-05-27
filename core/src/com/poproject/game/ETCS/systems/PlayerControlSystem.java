@@ -6,6 +6,9 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.poproject.game.ETCS.GameEngine;
 import com.poproject.game.KeyboardController;
 import com.poproject.game.ETCS.components.Box2dBodyComponent;
@@ -47,27 +50,12 @@ public class PlayerControlSystem extends IteratingSystem {
                 (speedY - b2body.body.getLinearVelocity().y)* b2body.body.getMass(),
                 b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
 
-
-//        if(controller.left){
-//            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -5f, 0.2f),b2body.body.getLinearVelocity().y);
-//        }
-//        if(controller.right){
-//            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5f, 0.2f),b2body.body.getLinearVelocity().y);
-//        }
-//        if(controller.up){
-//            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().y, 5f, 0.2f),b2body.body.getLinearVelocity().y);
-//        }
-//        if(controller.down){
-//            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().y, 5f, 0.2f),b2body.body.getLinearVelocity().y);
-//        }
-//
-//        if(!controller.left && !controller.right && !controller.up && !controller.down){
-//            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
-//        }
-//
-//        if(controller.up &&
-//                (state.get() == StateComponent.State.NORMAL || state.get() == StateComponent.State.MOVING)){
-//            b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
-//        }
+        float lerp = 2f;
+        Vector2 playerPosition = b2body.body.getPosition();
+        OrthographicCamera camera = ProjectGame.getInstance().getGameCamera();
+        Vector3 position = camera.position;
+        position.x += (playerPosition.x - position.x) * lerp * deltaTime;
+        position.y += (playerPosition.y - position.y) * lerp * deltaTime;
+        camera.update();
     }
 }

@@ -18,14 +18,11 @@ public class MenuScreen implements Screen {
     public MenuScreen(ProjectGame projectGame){
         parent = projectGame;
         stage = new Stage(new ScreenViewport());
-    }
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
+
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
-
+        System.out.println(stage.getActors().toString(" "));
         stage.addActor(table);
 
         Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
@@ -60,6 +57,12 @@ public class MenuScreen implements Screen {
                 parent.setScreen(ScreenType.PREFERENCES);
             }
         });
+
+    }
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
