@@ -14,17 +14,10 @@ import com.poproject.game.ProjectGame;
 public class LoadingScreen extends AbstractScreen {
     private final AssetManager assetManager;
     private final Stage stage;
-    private final Label loadingText;
+    private Label loadingText;
     public LoadingScreen(ProjectGame context){
         super(context);
         stage = new Stage(new ScreenViewport());
-        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
-
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
-        loadingText = new Label("Loading: ", skin);
-        table.add(loadingText);
 
         assetManager = context.getAssetManager();
         assetManager.load("map/mapaProjekt.tmx", TiledMap.class);
@@ -32,6 +25,14 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(null);
+        stage.clear();
+        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
+        stage.clear();
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+        loadingText = new Label("Loading: ", skin);
+        table.add(loadingText);
     }
 
     @Override

@@ -20,6 +20,11 @@ public class PreferencesScreen implements Screen {
     public PreferencesScreen(ProjectGame projectGame){
         parent = projectGame;
         stage = new Stage(new ScreenViewport());
+    }
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        stage.clear();
 
         Table table = new Table();
         table.setFillParent(true);
@@ -72,11 +77,6 @@ public class PreferencesScreen implements Screen {
         table.add(volumeMusicSlider);
         table.row();
         table.add(backButton).colspan(2);
-
-    }
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
 
     }
     @Override

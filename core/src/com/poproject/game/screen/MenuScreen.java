@@ -18,7 +18,11 @@ public class MenuScreen implements Screen {
     public MenuScreen(ProjectGame projectGame){
         parent = projectGame;
         stage = new Stage(new ScreenViewport());
-
+    }
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        stage.clear();
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
@@ -57,12 +61,6 @@ public class MenuScreen implements Screen {
                 parent.setScreen(ScreenType.PREFERENCES);
             }
         });
-
-    }
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
