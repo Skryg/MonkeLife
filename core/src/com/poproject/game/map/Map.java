@@ -1,5 +1,6 @@
 package com.poproject.game.map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
@@ -25,14 +26,27 @@ public class Map {
         final MapLayer colliders = tiledMap.getLayers().get("colliders");
         if(colliders == null) return;
 
+        int i = 0;
         for(MapObject mapObject : colliders.getObjects()){
+            Gdx.app.log("Collision Parse: ", String.valueOf(i));
             if(mapObject instanceof RectangleMapObject){
+                Gdx.app.log("Rectangle: ", String.valueOf(i));
                 createRectangleCollisionArea((RectangleMapObject) mapObject);
             }else if(mapObject instanceof PolylineMapObject){
                 createPolylineCollisionArea((PolylineMapObject) mapObject);
+                Gdx.app.log("Polyline: ", String.valueOf(i));
             }
+//            else if(mapObject instanceof PolygonMapObject){
+//                createPolygonCollisionArea((PolygonMapObject) mapObject);
+//                Gdx.app.log("Polygon: ", String.valueOf(i));
+//            }
+            i++;
         }
     }
+
+//    void createPolygonCollisionArea(PolygonMapObject polygonMapObject){
+//
+//    }
 
     void createPolylineCollisionArea(PolylineMapObject polylineMapObject){
         final Polyline pl = polylineMapObject.getPolyline();

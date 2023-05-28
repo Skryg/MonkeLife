@@ -68,9 +68,10 @@ public class RenderingSystem extends SortedIteratingSystem {
 
         this.batch = ProjectGame.getInstance().getSpriteBatch();
 
+        cam = ProjectGame.getInstance().getGameCamera();
         // set up the camera to match our screen size
-        cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-        cam.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
+//        cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+//        cam.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
         // update camera and sprite batch
         cam.update();
-//        batch.setProjectionMatrix(cam.combined);
+        batch.setProjectionMatrix(cam.combined);
         batch.enableBlending();
         batch.begin();
 
