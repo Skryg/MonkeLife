@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.poproject.game.Assets;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.etcs.components.CameraComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
@@ -77,7 +78,7 @@ public class GameEngine extends PooledEngine {
         playerEntity.add(box2dBodyComponent);
 
         //Texture
-        Texture texture = new Texture(Gdx.files.internal("player.png"));
+        Texture texture = ProjectGame.getInstance().getAssetManager().get(Assets.player,Texture.class);
         TextureComponent textureComponent = new TextureComponent();
         textureComponent.region = new TextureRegion(texture);
 

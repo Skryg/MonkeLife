@@ -49,11 +49,10 @@ public class ProjectGame extends Game {
 
 		//assets
 		assetManager = new AssetManager();
-		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+		Assets.loadSkin(assetManager);
 
 		gameCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(16, 9, gameCamera);
-//		spriteBatch.setProjectionMatrix(gameCamera.combined);
 
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);

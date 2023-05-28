@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
 public class MenuScreen implements Screen {
@@ -29,7 +30,7 @@ public class MenuScreen implements Screen {
         System.out.println(stage.getActors().toString(" "));
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
+        Skin skin = parent.getAssetManager().get(Assets.skinUI);
 
         TextButton newGame = new TextButton("New game", skin);
         TextButton preferences = new TextButton("Preferences", skin);

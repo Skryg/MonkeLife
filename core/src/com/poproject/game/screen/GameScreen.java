@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.poproject.game.Assets;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
@@ -31,9 +32,9 @@ public class GameScreen extends AbstractScreen {
     private float accumulator;
     public GameScreen(final ProjectGame context){
         super(context);
-
         accumulator = 0f;
         assetManager = context.getAssetManager();
+
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
         gameCamera = context.getGameCamera();
         box2DDebugRenderer = new Box2DDebugRenderer();
@@ -43,7 +44,7 @@ public class GameScreen extends AbstractScreen {
 
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
-        map = new Map(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
+        map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
 
     }
@@ -54,7 +55,7 @@ public class GameScreen extends AbstractScreen {
     }
     @Override
     public void show() {
-        mapRenderer.setMap(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
+        mapRenderer.setMap(assetManager.get(Assets.map, TiledMap.class));
         Gdx.input.setInputProcessor(null);
     }
 

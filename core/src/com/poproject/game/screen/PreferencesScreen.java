@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
 public class PreferencesScreen implements Screen {
@@ -30,7 +31,7 @@ public class PreferencesScreen implements Screen {
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
-        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
+        Skin skin = parent.getAssetManager().get(Assets.skinUI);
 
         //volume
         final Slider volumeMusicSlider = new Slider( 0f, 1f, 0.1f,false, skin );

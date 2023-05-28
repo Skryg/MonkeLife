@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
 public class LoadingScreen extends AbstractScreen {
@@ -18,21 +19,20 @@ public class LoadingScreen extends AbstractScreen {
     public LoadingScreen(ProjectGame context){
         super(context);
         stage = new Stage(new ScreenViewport());
-
         assetManager = context.getAssetManager();
-        assetManager.load("map/mapaProjekt.tmx", TiledMap.class);
     }
     @Override
     public void show() {
         Gdx.input.setInputProcessor(null);
         stage.clear();
-        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
-        stage.clear();
+        Skin skin = assetManager.get(Assets.skinUI);
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
         loadingText = new Label("Loading: ", skin);
         table.add(loadingText);
+
+        Assets.load(assetManager);
     }
 
     @Override
@@ -45,7 +45,6 @@ public class LoadingScreen extends AbstractScreen {
         stage.draw();
 
         if(assetManager.update())context.setScreen(ScreenType.GAME);
-        //if(Gdx.input.isKeyPressed(Input.Keys.Q))context.setScreen(ScreenType.GAME);
     }
     @Override
     public void resize(int width, int height) {
