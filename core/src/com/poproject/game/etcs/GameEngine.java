@@ -48,7 +48,6 @@ public class GameEngine extends PooledEngine {
         Entity playerEntity = createEntity();
         playerEntity.add(this.createComponent(PlayerComponent.class));
 
-
         //BOX2d Body
         BodyComponent box2dBodyComponent = this.createComponent(BodyComponent.class);
         resetBodyAndFixtureDef();

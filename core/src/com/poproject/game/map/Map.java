@@ -50,7 +50,7 @@ public class Map {
 
     void createPolylineCollisionArea(PolylineMapObject polylineMapObject){
         final Polyline pl = polylineMapObject.getPolyline();
-        collisionAreas.add(new CollisionArea(pl.getOriginX(), pl.getOriginY(), pl.getVertices()));
+        collisionAreas.add(new CollisionArea(pl.getX(), pl.getY(), pl.getVertices()));
     }
 
     void createRectangleCollisionArea(RectangleMapObject rectangleMapObject){
