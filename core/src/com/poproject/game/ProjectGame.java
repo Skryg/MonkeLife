@@ -25,7 +25,7 @@ import java.util.EnumMap;
 
 public class ProjectGame extends Game {
 	private EnumMap<ScreenType, Screen> screenCache;
-	private FitViewport screenViewport;
+
 	private AssetManager assetManager;
 	private OrthographicCamera gameCamera;
 	private SpriteBatch spriteBatch;
@@ -51,9 +51,6 @@ public class ProjectGame extends Game {
 		assetManager = new AssetManager();
 		Assets.loadSkin(assetManager);
 
-		gameCamera = new OrthographicCamera();
-		screenViewport = new FitViewport(16, 9, gameCamera);
-
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);
 	}
@@ -66,16 +63,12 @@ public class ProjectGame extends Game {
 				screenCache.put(screenType, (Screen)newScreen);
 				setScreen((Screen) newScreen);
 			}catch(ReflectionException e){
-				throw new GdxRuntimeException("Screen" + screen + "was not created");
+				throw new GdxRuntimeException("Screen" + screen + "was not created", e.getCause());
 			}
 		}else setScreen(screen);
 	}
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
-	public OrthographicCamera getGameCamera(){return gameCamera;}
-	public FitViewport getScreenViewport() {
-		return screenViewport;
-	}
 
 	public void dispose(){
 		super.dispose();

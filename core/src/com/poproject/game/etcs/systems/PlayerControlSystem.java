@@ -27,6 +27,11 @@ public class PlayerControlSystem extends IteratingSystem {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
         if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
 
+        if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
+            speedX*=2;
+            speedY*=2;
+        }
+
         if(speedX < 0) b2body.scale.x = Math.min(-b2body.scale.x, b2body.scale.x);
         if(speedX > 0) b2body.scale.x = Math.max(-b2body.scale.x, b2body.scale.x);
         b2body.body.applyLinearImpulse((speedX - b2body.body.getLinearVelocity().x)* b2body.body.getMass(),

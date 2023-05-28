@@ -57,7 +57,7 @@ public class RenderingSystem extends SortedIteratingSystem {
     private ComponentMapper<BodyComponent> transformM;
 
     @SuppressWarnings("unchecked")
-    public RenderingSystem(OrthogonalTiledMapRenderer mapRenderer) {
+    public RenderingSystem(OrthogonalTiledMapRenderer mapRenderer, OrthographicCamera camera) {
         super(Family.all(BodyComponent.class, TextureComponent.class).get(), new ZComparator());
         this.mapRenderer = mapRenderer;
         //creates out componentMappers
@@ -68,7 +68,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
         this.batch = ProjectGame.getInstance().getSpriteBatch();
 
-        cam = ProjectGame.getInstance().getGameCamera();
+        cam = camera;
         // set up the camera to match our screen size
 //        cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 //        cam.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
@@ -78,7 +78,7 @@ public class RenderingSystem extends SortedIteratingSystem {
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        mapRenderer.setView(ProjectGame.getInstance().getGameCamera());
+        mapRenderer.setView(cam);
         mapRenderer.render();
         // sort the renderQueue based on z index
         renderQueue.sort(comparator);

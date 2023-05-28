@@ -1,26 +1,26 @@
 package com.poproject.game.etcs.components;
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.utils.Pool;
-
-public class PlayerComponent implements Component, Pool.Poolable {
-    public String name;
+public class PlayerComponent extends Damageable {
+    public final int XP_MULTIPLY = 100;
     public int level;
-    public int healthPoints;
+    public int xp;
     public int manaPoints;
-    public int strength;
-    public int speed;
+
     public PlayerComponent() {
-        name = "";
+        super("", 100, 10, 20, true);
         level = 1;
-        healthPoints = 100;
+        xp = 0;
         manaPoints = 100;
-        strength = 10;
-        speed = 20;
     }
 
-    @Override
-    public void reset() {
+    public void levelUp(){
+        while(xp >= level*XP_MULTIPLY){
+            xp -= level*XP_MULTIPLY;
+            ++level;
+        }
+    }
 
+    public void getXP(int xp){
+        this.xp += xp;
     }
 }

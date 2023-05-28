@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
-    private static Skin uiSkin;
     public static final String map = "map/mapaProjekt.tmx";
     public static final String player = "player.png";
     public static final String skinUI = "skin/craftacular-ui.json";

@@ -1,6 +1,7 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,16 +10,18 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
 import com.poproject.game.map.CollisionArea;
 import com.poproject.game.map.Map;
+import com.poproject.game.utils.BodyFactory;
 
 import static com.poproject.game.ProjectGame.*;
 
-public class GameScreen extends AbstractScreen {
+public class GameScreen implements Screen {
 
 //    private final Body player;
     private final AssetManager assetManager;
@@ -30,15 +33,22 @@ public class GameScreen extends AbstractScreen {
     private final World world;
     private final Map map;
     private float accumulator;
+    private FitViewport screenViewport;
+
     public GameScreen(final ProjectGame context){
-        super(context);
         accumulator = 0f;
         assetManager = context.getAssetManager();
 
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
-        gameCamera = context.getGameCamera();
+
+        gameCamera = new OrthographicCamera();
+        screenViewport = new FitViewport(16, 9, gameCamera);
+
+
         box2DDebugRenderer = new Box2DDebugRenderer();
         world = new World(new Vector2(0, 0f), false);
+        BodyFactory.setWorld(world);
+
         worldContactListener = new WorldContactListener();
         world.setContactListener(worldContactListener);
 
@@ -46,13 +56,13 @@ public class GameScreen extends AbstractScreen {
         gameEngine.spawnPlayer();
         map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
-
     }
 
     private void spawnCollisionAreas(){
         Array<CollisionArea> collisionAreas = map.getCollisionAreas();
-        gameEngine.createCollisionAreas(collisionAreas);
+        BodyFactory.getInstance().createCollisionAreas(collisionAreas);
     }
+
     @Override
     public void show() {
         mapRenderer.setMap(assetManager.get(Assets.map, TiledMap.class));
@@ -71,7 +81,7 @@ public class GameScreen extends AbstractScreen {
             world.step(FIXED_TIME_STEP, 6, 2);
             accumulator -= FIXED_TIME_STEP;
         }
-        box2DDebugRenderer.render(world, viewport.getCamera().combined);
+        box2DDebugRenderer.render(world, screenViewport.getCamera().combined);
     }
 
     public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
@@ -79,19 +89,22 @@ public class GameScreen extends AbstractScreen {
     public World getWorld(){return world;}
     @Override
     public void pause() {}
-
     @Override
     public void resume() {}
-
     @Override
     public void hide() {}
 
     public void resize(final int width, final int height){
-        context.getScreenViewport().update(width, height);
+        screenViewport.update(width, height);
     }
     @Override
     public void dispose() {
         world.dispose();
         box2DDebugRenderer.dispose();
+    }
+
+    public OrthographicCamera getGameCamera(){return gameCamera;}
+    public FitViewport getScreenViewport() {
+        return screenViewport;
     }
 }
