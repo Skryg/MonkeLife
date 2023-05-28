@@ -71,7 +71,6 @@ public class GameScreen extends AbstractScreen {
             accumulator -= FIXED_TIME_STEP;
         }
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
-
     }
 
     public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
