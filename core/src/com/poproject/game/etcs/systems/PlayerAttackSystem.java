@@ -17,7 +17,7 @@ public class PlayerAttackSystem  extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         if(!Gdx.input.isButtonPressed(Input.Buttons.LEFT))return;
 
-        final PlayerWeaponComponent pwc = GameEngine.PlayerWeaponComponentMapper.get(entity);
+        final PlayerWeaponComponent pwc = GameEngine.playerWeaponComponentMapper.get(entity);
         if(pwc == null || !pwc.readyToAttack())return;
         attack(pwc);
     }

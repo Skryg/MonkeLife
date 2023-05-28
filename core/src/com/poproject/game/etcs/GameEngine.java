@@ -10,10 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
-import com.poproject.game.etcs.components.BodyComponent;
-import com.poproject.game.etcs.components.CameraComponent;
-import com.poproject.game.etcs.components.PlayerComponent;
-import com.poproject.game.etcs.components.TextureComponent;
+import com.poproject.game.etcs.components.*;
 import com.poproject.game.etcs.systems.*;
 import com.poproject.game.screen.GameScreen;
 import com.poproject.game.utils.BodyFactory;
@@ -22,7 +19,7 @@ public class GameEngine extends PooledEngine {
     public static ComponentMapper<PlayerComponent> playerComponentMapper = ComponentMapper.getFor(PlayerComponent.class);
     public static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
     public static ComponentMapper<CameraComponent> cameraComponentMapper = ComponentMapper.getFor(CameraComponent.class);
-
+    public static ComponentMapper<PlayerWeaponComponent> playerWeaponComponentMapper = ComponentMapper.getFor(PlayerWeaponComponent.class);
     private final GameScreen gameScreen;
     private final World world;
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
