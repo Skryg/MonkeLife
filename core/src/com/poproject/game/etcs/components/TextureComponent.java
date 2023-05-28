@@ -1,4 +1,4 @@
-package com.poproject.game.ETCS.components;
+package com.poproject.game.etcs.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

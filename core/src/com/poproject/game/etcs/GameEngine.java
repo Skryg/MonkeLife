@@ -1,20 +1,20 @@
-package com.poproject.game.ETCS;
+package com.poproject.game.etcs;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.poproject.game.ETCS.components.Box2dBodyComponent;
-import com.poproject.game.ETCS.components.CameraComponent;
-import com.poproject.game.ETCS.components.PlayerComponent;
-import com.poproject.game.ETCS.systems.*;
-import com.poproject.game.KeyboardController;
+import com.poproject.game.etcs.components.BodyComponent;
+import com.poproject.game.etcs.components.CameraComponent;
+import com.poproject.game.etcs.components.PlayerComponent;
+import com.poproject.game.etcs.components.TextureComponent;
+import com.poproject.game.etcs.systems.*;
 import com.poproject.game.ProjectGame;
-import com.poproject.game.WorldContactListener;
 import com.poproject.game.map.CollisionArea;
 import com.poproject.game.screen.GameScreen;
 
@@ -23,7 +23,7 @@ import static com.poproject.game.ProjectGame.BIT_PLAYER;
 
 public class GameEngine extends PooledEngine {
     public static ComponentMapper<PlayerComponent> playerComponentMapper = ComponentMapper.getFor(PlayerComponent.class);
-    public static ComponentMapper<Box2dBodyComponent> box2dBodyComponentComponentMapper = ComponentMapper.getFor(Box2dBodyComponent.class);
+    public static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
     public static ComponentMapper<CameraComponent> cameraComponentMapper = ComponentMapper.getFor(CameraComponent.class);
     private final Vector2 playerStartPosition = new Vector2(4.5f, 3f);
     private final BodyDef bodyDef;
@@ -32,7 +32,6 @@ public class GameEngine extends PooledEngine {
     private final World world;
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
 //        this.addSystem(new AnimationSystem());
-//        this.addSystem(new RenderingSystem());
 //        this.addSystem(new CollisionSystem());
         this.gameScreen = gameScreen;
         this.world = gameScreen.getWorld();
@@ -41,14 +40,16 @@ public class GameEngine extends PooledEngine {
         bodyDef = new BodyDef();
         this.addSystem(new PlayerControlSystem());//controller
         this.addSystem(new CamFollowPlayerSystem());
+        this.addSystem(new RenderingSystem(gameScreen.getMapRenderer()));
     }
 
     public void spawnPlayer(){
         Entity playerEntity = createEntity();
         playerEntity.add(this.createComponent(PlayerComponent.class));
 
+
         //BOX2d Body
-        Box2dBodyComponent box2dBodyComponent = this.createComponent(Box2dBodyComponent.class);
+        BodyComponent box2dBodyComponent = this.createComponent(BodyComponent.class);
         resetBodyAndFixtureDef();
 
         bodyDef.position.set(playerStartPosition);
@@ -57,7 +58,6 @@ public class GameEngine extends PooledEngine {
         bodyDef.fixedRotation = true;
         Body playerBody = world.createBody(bodyDef);
         playerBody.setUserData("PLAYER");
-//        player.setUserData("PLAYER");
 
         fixtureDef.density = 1;
         fixtureDef.isSensor = false;
@@ -73,7 +73,15 @@ public class GameEngine extends PooledEngine {
         pShape.dispose();
 
         box2dBodyComponent.body = playerBody;
+        box2dBodyComponent.scale.set(1f, 1f);
         playerEntity.add(box2dBodyComponent);
+
+//        //Texture
+//        Texture texture = new Texture(Gdx.files.internal("player.png"));
+//        TextureComponent textureComponent = new TextureComponent();
+//        textureComponent.region = new TextureRegion(texture);
+//
+//        playerEntity.add(textureComponent);
 
         //camera system
         CameraComponent camCmp = createComponent(CameraComponent.class);
@@ -81,12 +89,8 @@ public class GameEngine extends PooledEngine {
         playerEntity.add(camCmp);
 
         addEntity(playerEntity);
-//        cameraComponent();
     }
-//    private void cameraComponent(){
-//        Entity cameraEntity = createEntity();
-//        addEntity(cameraEntity);
-//    }
+
 
     private void createCollisionArea(CollisionArea ca){
         resetBodyAndFixtureDef();

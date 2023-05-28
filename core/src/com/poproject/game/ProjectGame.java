@@ -45,20 +45,16 @@ public class ProjectGame extends Game {
 		if(instance == null)instance = this;
 		spriteBatch = new SpriteBatch();
 		accumulator = 0f;
-
-
-//		box2d
-//		world = new World(new Vector2(0, 0f), false);
 		preferences = new AppPreferences();
 
 		//assets
-
 		assetManager = new AssetManager();
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
 
-		//first screen
 		gameCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(16, 9, gameCamera);
+		spriteBatch.setProjectionMatrix(gameCamera.combined);
+
 
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);
@@ -79,33 +75,17 @@ public class ProjectGame extends Game {
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
 	public OrthographicCamera getGameCamera(){return gameCamera;}
-//	public WorldContactListener getWorldContactListener(){return worldContactListener;}
-
 	public FitViewport getScreenViewport() {
 		return screenViewport;
 	}
 
-//	public World getWorld(){
-//		return world;
-//	}
-
-//	public Box2DDebugRenderer getBox2DDebugRenderer(){return box2DDebugRenderer;}
-
 	public void dispose(){
 		super.dispose();
-//		world.dispose();
-//		box2DDebugRenderer.dispose();
 		assetManager.dispose();
 	}
-
 	public void render(){
 		super.render();
-
-
-		//for interpolation
-//		final float alpha = accumulator / FIXED_TIME_STEP;
 	}
-
 	public AppPreferences getPreferences(){
 		return preferences;
 	}

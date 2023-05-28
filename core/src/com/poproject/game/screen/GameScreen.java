@@ -1,7 +1,6 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.poproject.game.ETCS.GameEngine;
+import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
 import com.poproject.game.map.CollisionArea;
@@ -41,12 +40,12 @@ public class GameScreen extends AbstractScreen {
         world = new World(new Vector2(0, 0f), false);
         worldContactListener = new WorldContactListener();
         world.setContactListener(worldContactListener);
+
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
         map = new Map(assetManager.get("map/mapaProjekt.tmx", TiledMap.class));
         spawnCollisionAreas();
-//        bodyDef = new BodyDef();
-//        fixtureDef = new FixtureDef();
+
     }
 
     private void spawnCollisionAreas(){
@@ -65,19 +64,18 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         gameEngine.update(Gdx.graphics.getDeltaTime());
+
         accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
         while(accumulator >= FIXED_TIME_STEP){
             world.step(FIXED_TIME_STEP, 6, 2);
             accumulator -= FIXED_TIME_STEP;
         }
-
-        viewport.apply(false);
-        mapRenderer.setView(gameCamera);
-        mapRenderer.render();
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
 
-//        if(Gdx.input.isKeyPressed(Input.Keys.Q))context.setScreen(ScreenType.LOADING);
     }
+
+    public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
+    public OrthogonalTiledMapRenderer getMapRenderer(){return mapRenderer;}
     public World getWorld(){return world;}
     @Override
     public void pause() {}
