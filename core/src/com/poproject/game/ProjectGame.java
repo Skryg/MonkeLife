@@ -53,8 +53,7 @@ public class ProjectGame extends Game {
 
 		gameCamera = new OrthographicCamera();
 		screenViewport = new FitViewport(16, 9, gameCamera);
-		spriteBatch.setProjectionMatrix(gameCamera.combined);
-
+//		spriteBatch.setProjectionMatrix(gameCamera.combined);
 
 		screenCache = new EnumMap<>(ScreenType.class);
 		setScreen(ScreenType.MENU);
@@ -82,6 +81,7 @@ public class ProjectGame extends Game {
 	public void dispose(){
 		super.dispose();
 		assetManager.dispose();
+		spriteBatch.dispose();
 	}
 	public void render(){
 		super.render();

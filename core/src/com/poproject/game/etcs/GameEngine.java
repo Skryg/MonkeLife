@@ -73,15 +73,15 @@ public class GameEngine extends PooledEngine {
         pShape.dispose();
 
         box2dBodyComponent.body = playerBody;
-        box2dBodyComponent.scale.set(1f, 1f);
+        box2dBodyComponent.scale.set(0.03f, 0.03f);
         playerEntity.add(box2dBodyComponent);
 
-//        //Texture
-//        Texture texture = new Texture(Gdx.files.internal("player.png"));
-//        TextureComponent textureComponent = new TextureComponent();
-//        textureComponent.region = new TextureRegion(texture);
-//
-//        playerEntity.add(textureComponent);
+        //Texture
+        Texture texture = new Texture(Gdx.files.internal("player.png"));
+        TextureComponent textureComponent = new TextureComponent();
+        textureComponent.region = new TextureRegion(texture);
+
+        playerEntity.add(textureComponent);
 
         //camera system
         CameraComponent camCmp = createComponent(CameraComponent.class);

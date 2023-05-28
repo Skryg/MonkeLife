@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.poproject.game.ProjectGame;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.etcs.components.CameraComponent;
@@ -26,5 +27,6 @@ public class CamFollowPlayerSystem extends IteratingSystem {
         position.x += (playerPosition.x - position.x) * lerp * deltaTime;
         position.y += (playerPosition.y - position.y) * lerp * deltaTime;
         camera.update();
+        ProjectGame.getInstance().getSpriteBatch().setProjectionMatrix(camera.combined);
     }
 }
