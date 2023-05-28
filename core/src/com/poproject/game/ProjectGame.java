@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Select;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -37,6 +38,7 @@ public class ProjectGame extends Game {
 	public static final short BIT_GROUND = 1 << 2;
 	public static final short BIT_PLAYER = 1 << 3;
 	public static final float FIXED_TIME_STEP = 1/60f;
+	public static State state = State.RUNNING;
 
 	public static ProjectGame getInstance(){
 		return instance;

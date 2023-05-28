@@ -27,6 +27,7 @@ public class PlayerControlSystem extends IteratingSystem {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) speedY += 3f;
         if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -3f;
 
+
         if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){
             speedX*=2;
             speedY*=2;

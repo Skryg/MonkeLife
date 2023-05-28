@@ -1,6 +1,7 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.poproject.game.Assets;
+import com.poproject.game.State;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
@@ -74,21 +76,34 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        gameEngine.update(Gdx.graphics.getDeltaTime());
+        switch (state){
+            case RUNNING:
+                if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();
 
-        accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
-        while(accumulator >= FIXED_TIME_STEP){
-            world.step(FIXED_TIME_STEP, 6, 2);
-            accumulator -= FIXED_TIME_STEP;
+                gameEngine.update(Gdx.graphics.getDeltaTime());
+
+                accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
+                while(accumulator >= FIXED_TIME_STEP){
+                    world.step(FIXED_TIME_STEP, 6, 2);
+                    accumulator -= FIXED_TIME_STEP;
+                }
+                box2DDebugRenderer.render(world, screenViewport.getCamera().combined);
+                break;
+            case PAUSE:
+                ProjectGame.getInstance().setScreen(ScreenType.PAUSE);
+                break;
         }
-        box2DDebugRenderer.render(world, screenViewport.getCamera().combined);
+
+
     }
 
     public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
     public OrthogonalTiledMapRenderer getMapRenderer(){return mapRenderer;}
     public World getWorld(){return world;}
     @Override
-    public void pause() {}
+    public void pause() {
+        state = State.PAUSE;
+    }
     @Override
     public void resume() {}
     @Override

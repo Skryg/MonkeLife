@@ -58,12 +58,26 @@ public class PreferencesScreen implements Screen {
 
         // return to main screen button
         final TextButton backButton = new TextButton("Back", skin); // the extra argument here "small" is used to set the button to the smaller version instead of the big default version
-        backButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(ScreenType.MENU);
-            }
-        });
+
+        switch (ProjectGame.state){
+            case RUNNING:
+                backButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        parent.setScreen(ScreenType.MENU);
+                    }
+                });
+                break;
+            case PAUSE:
+                backButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        parent.setScreen(ScreenType.PAUSE);
+                    }
+                });
+                break;
+        }
+
 
         // our new fields
         Label titleLabel = new Label("Preferences", skin);
