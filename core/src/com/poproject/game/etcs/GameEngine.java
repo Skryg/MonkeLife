@@ -20,6 +20,7 @@ public class GameEngine extends PooledEngine {
             ComponentMapper.getFor(MoveableComponent.class);
     public static ComponentMapper<EnemyComponent> enemyComponentMapper = ComponentMapper.getFor(EnemyComponent.class);
     public static ComponentMapper<ProjectileComponent> projectileComponentMapper = ComponentMapper.getFor(ProjectileComponent.class);
+    public static ComponentMapper<PlayerBuildingComponent> playerBuildingComponentMapper = ComponentMapper.getFor(PlayerBuildingComponent.class);
     public final EntityBuilder entityBuilder = new EntityBuilder(this);
 
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
@@ -31,6 +32,7 @@ public class GameEngine extends PooledEngine {
         this.addSystem(new EnemyMovementSystem());
         this.addSystem(new PlayerAttackSystem(gameScreen.getCamera(), this));
         this.addSystem(new ProjectileSystem(this));
+        this.addSystem(new PlayerBuildingSystem(gameScreen.getCamera(), this));
     }
 
 

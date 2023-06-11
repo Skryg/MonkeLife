@@ -12,6 +12,7 @@ public class Assets {
     public static final String player = "player.png";
     public static final String enemy = "enemy.png";
     public static final String skinUI = "skin/craftacular-ui.json";
+    public static final String banana = "banana.png";
     public static void loadSkin(AssetManager assetManager){
         assetManager.load(skinUI, Skin.class);
         assetManager.finishLoading();
@@ -21,6 +22,7 @@ public class Assets {
         assetManager.load(enemy, Texture.class);
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
         assetManager.load(map, TiledMap.class);
+        assetManager.load(banana, Texture.class);
     }
 
 }

@@ -49,6 +49,10 @@ public class ComponentBuilder {
         return engine.createComponent(PlayerWeaponComponent.class);
     }
 
+    public PlayerBuildingComponent createPlayerBuildingComponent(){
+        return engine.createComponent(PlayerBuildingComponent.class);
+    }
+
     public EnemyComponent createEnemyComponent() {
         return engine.createComponent(EnemyComponent.class);
     }

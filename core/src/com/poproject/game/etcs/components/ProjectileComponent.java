@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Pool;
 public class ProjectileComponent implements Component, Pool.Poolable {
     public float destX = 0;
     public float destY = 0;
-    public final float speed = 3f;
+    public final float speed = 2f;
     public final float mass = 1f;
     public final int dmg = 5;
     public boolean hit = false;
