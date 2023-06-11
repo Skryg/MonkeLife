@@ -41,7 +41,7 @@ public class GameEngine extends PooledEngine {
 
 
     public void spawnPlayer(){
-        Entity playerEntity = entityBuilder.createPlayer(new Vector2(4.5f, 3f));
+        Entity playerEntity = entityBuilder.createPlayer(new Vector2(20.5f, 20f));
         addEntity(playerEntity);
     }
     public Entity getPlayer(){
@@ -62,9 +62,5 @@ public class GameEngine extends PooledEngine {
         Entity enemyEntity = entityBuilder.createEnemy(startPosition, bc.body);
         addEntity(enemyEntity);
     }
-
-
-
-
 
 }

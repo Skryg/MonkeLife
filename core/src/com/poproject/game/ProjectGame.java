@@ -53,7 +53,7 @@ public class ProjectGame extends Game {
 		spriteBatch = new SpriteBatch();
 		accumulator = 0f;
 		preferences = new AppPreferences();
-		RandomVectorGenerator.setInterval(new Vector2(2,2), new Vector2(7,7));
+		RandomVectorGenerator.setInterval(new Vector2(10,10), new Vector2(50,50));
 		//assets + audio
 		assetManager = new AssetManager();
 		audioManager = new AudioManager(assetManager);
