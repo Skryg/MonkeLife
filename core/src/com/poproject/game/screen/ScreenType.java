@@ -7,7 +7,8 @@ public enum ScreenType {
     LOADING(LoadingScreen.class),
     MENU(MenuScreen.class),
     PREFERENCES(PreferencesScreen.class),
-    PAUSE(PauseScreen.class);
+    PAUSE(PauseScreen.class),
+    DEATH(DeathScreen.class);
     private final Class<? extends Screen> screenClass;
     ScreenType(final Class<? extends  Screen> screenClass){
         this.screenClass = screenClass;

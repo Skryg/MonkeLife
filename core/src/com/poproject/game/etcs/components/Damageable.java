@@ -4,10 +4,10 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
 
 public abstract class Damageable implements Component, Pool.Poolable{
-    public final int maxHealth;
+    public final float maxHealth;
     public final int maxStrength;
     public String name;
-    public int healthPoints;
+    public float healthPoints;
     public int strength;
     public boolean isFriendly;
     public boolean isAlive = true;
@@ -22,8 +22,7 @@ public abstract class Damageable implements Component, Pool.Poolable{
         this.strength = strength;
     }
 
-    public void getDamage(int damage){
-        System.out.println("Ouch!");
+    public void getDamage(float damage){
         healthPoints -= damage;
         if(healthPoints < 0){
             isAlive = false;

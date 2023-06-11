@@ -16,4 +16,5 @@ public abstract class AbstractScreen implements Screen {
     public Viewport getScreenViewport() {
         return viewport;
     }
+    public abstract void reset();
 }

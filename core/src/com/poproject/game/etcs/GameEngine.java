@@ -1,9 +1,9 @@
 package com.poproject.game.etcs;
 
 import com.badlogic.ashley.core.*;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.poproject.game.etcs.components.*;
 import com.poproject.game.etcs.systems.*;
 import com.poproject.game.screen.GameScreen;
@@ -20,11 +20,13 @@ public class GameEngine extends PooledEngine {
     public static ComponentMapper<ProjectileComponent> projectileComponentMapper = ComponentMapper.getFor(ProjectileComponent.class);
     public static ComponentMapper<PlayerBuildingComponent> playerBuildingComponentMapper = ComponentMapper.getFor(PlayerBuildingComponent.class);
     public static ComponentMapper<TowerComponent> towerComponentMapper = ComponentMapper.getFor(TowerComponent.class);
+    public static ComponentMapper<CollisionComponent> collisionComponentMapper = ComponentMapper.getFor(CollisionComponent.class);
+
     public final EntityBuilder entityBuilder = new EntityBuilder(this);
 
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
 //        this.addSystem(new AnimationSystem());
-//        this.addSystem(new CollisionSystem());
+        this.addSystem(new CollisionSystem(this));
         this.addSystem(new PlayerControlSystem());//controller
         this.addSystem(new CamFollowPlayerSystem());
         this.addSystem(new RenderingSystem(gameScreen.getMapRenderer(), (OrthographicCamera) gameScreen.getCamera()));
@@ -34,9 +36,12 @@ public class GameEngine extends PooledEngine {
         this.addSystem(new PlayerBuildingSystem(gameScreen.getCamera(), this));
         this.addSystem(new TowerShootingSystem(this));
         this.addSystem(new EnemyGenerateSystem(3, this, 15));
-        this.addSystem(new DeleteDeadEnemies(this));
-    }
+        this.addSystem(new DeleteDeadSystem(this));
+        this.addSystem(new PlayerDieSystem());
 
+        spawnPlayer();
+
+    }
 
     public void spawnPlayer(){
         Entity playerEntity = entityBuilder.createPlayer(new Vector2(4.5f, 3f));
@@ -61,8 +66,9 @@ public class GameEngine extends PooledEngine {
         addEntity(enemyEntity);
     }
 
-
-
-
+    public void dispose(){
+        removeAllSystems();
+        removeAllEntities();
+    }
 
 }

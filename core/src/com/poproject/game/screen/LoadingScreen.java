@@ -68,4 +68,7 @@ public class LoadingScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
     }
+
+    @Override
+    public void reset() {}
 }
