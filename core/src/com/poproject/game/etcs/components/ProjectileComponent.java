@@ -12,13 +12,13 @@ public class ProjectileComponent implements Component, Pool.Poolable {
     public final int dmg = 5;
     public boolean hit = false;
     public float flightTime = 0f;
-    public float maxFlightTime = 2f;
+    public float maxFlightTime = 0.5f;
     @Override
     public void reset() {
         destX = 0;
         destY = 0;
         hit = false;
         flightTime = 0f;
-        maxFlightTime = 2f;
+        maxFlightTime = 0.5f;
     }
 }

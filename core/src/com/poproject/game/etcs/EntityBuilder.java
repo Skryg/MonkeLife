@@ -51,7 +51,8 @@ public class EntityBuilder {
         projectile.add(projectileComponent);
 
         //setting life-time
-
+        projectileComponent.maxFlightTime = ((new Vector2(destX, destY)).sub(startPos)).len() / projectileComponent.speed/6f;
+        projectileComponent.flightTime = 0f;
 
         //Body component
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
@@ -66,5 +67,8 @@ public class EntityBuilder {
         projectile.add(bodyComponent);
 
         engine.addEntity(projectile);
+
+//        System.out.println("X: " + destX + "Y: " + destY);
+//        System.out.println(projectileComponent.maxFlightTime + " " + projectileComponent.flightTime);
     }
 }
