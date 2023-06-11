@@ -35,7 +35,7 @@ public class GameScreen extends AbstractScreen {
     private final AssetManager assetManager;
     private final OrthogonalTiledMapRenderer mapRenderer;
     private GameEngine gameEngine;
-    private final Box2DDebugRenderer box2DDebugRenderer;
+//    private final Box2DDebugRenderer box2DDebugRenderer;
 //    private final WorldContactListener worldContactListener;
     private final World world;
     private final Map map;
@@ -48,7 +48,8 @@ public class GameScreen extends AbstractScreen {
         assetManager = context.getAssetManager();
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
 
-        box2DDebugRenderer = new Box2DDebugRenderer();
+//        box2DDebugRenderer = new Box2DDebugRenderer();
+
         world = new World(new Vector2(0, 0f), false);
         BodyFactory.setWorld(world);
 
@@ -87,7 +88,7 @@ public class GameScreen extends AbstractScreen {
                     world.step(FIXED_TIME_STEP, 6, 2);
                     accumulator -= FIXED_TIME_STEP;
                 }
-                box2DDebugRenderer.render(world, getCamera().combined);
+//                box2DDebugRenderer.render(world, getCamera().combined);
                 break;
             case PAUSE:
                 ProjectGame.getInstance().setScreen(ScreenType.PAUSE);
@@ -95,7 +96,7 @@ public class GameScreen extends AbstractScreen {
         }
     }
 
-    public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
+//    public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
     public OrthogonalTiledMapRenderer getMapRenderer(){return mapRenderer;}
     public World getWorld(){return world;}
     @Override
@@ -107,7 +108,9 @@ public class GameScreen extends AbstractScreen {
     public void resume() {state = State.RUNNING;
         ProjectGame.getInstance().getAudioManager().playAudio(AudioType.MAINTHEME);}
     @Override
-    public void hide() {}
+    public void hide() {
+        ProjectGame.getInstance().getAudioManager().playAudio(AudioType.NONE);
+    }
 
     public void resize(final int width, final int height){
         getScreenViewport().update(width, height);
@@ -115,7 +118,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         world.dispose();
-        box2DDebugRenderer.dispose();
+//        box2DDebugRenderer.dispose();
         mapRenderer.dispose();
 
     }

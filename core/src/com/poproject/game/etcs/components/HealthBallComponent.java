@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.Pool;
 public class HealthBallComponent implements Pool.Poolable, Component {
     public Entity followedEntity;
     private float scaleNow = 1;
-    public int health = 10;
-    public int maxHealth = 10;
+    public float health = 10;
+    public float maxHealth = 10;
     public Vector2 baseScale = new Vector2(0.2f,0.2f);
     @Override
     public void reset() {

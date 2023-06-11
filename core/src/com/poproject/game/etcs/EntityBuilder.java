@@ -30,7 +30,7 @@ public class EntityBuilder {
 
         entity.add(componentBuilder.createBodyComponent(body, scale));
         body.setUserData(entity);
-        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.03f, 0.03f)));
+//        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.03f, 0.03f)));
         entity.add(componentBuilder.createTextureComponent(Assets.player));
         entity.add(componentBuilder.createMoveableComponent(3f,1));
         Vector3 cameraPosition = ProjectGame.getInstance().getGameCamera().position;
@@ -60,7 +60,7 @@ public class EntityBuilder {
         entity.add(componentBuilder.createEnemyComponent(followBody));
         Body body = BodyFactory.getInstance().makeEnemyBody(startPosition);
         body.setUserData(entity);
-        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
+//        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
         final Vector2 scale = new Vector2(0.05f, 0.05f);
 
         entity.add(componentBuilder.createBodyComponent(body, scale));
