@@ -3,6 +3,8 @@ package com.poproject.game.audio;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.poproject.game.AppPreferences;
+import com.poproject.game.ProjectGame;
 
 public class AudioManager {
     private AudioType currentMusicType;
@@ -15,7 +17,7 @@ public class AudioManager {
 
     public void playAudio(final AudioType audioType){
         if(!audioType.isMusic()) {
-            assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume());
+            assetManager.get(audioType.getFilePath(), Sound.class).play(audioType.getVolume() * ProjectGame.getInstance().getPreferences().getSoundVolume());
             return;
         }
         if(currentMusicType == audioType)return;
@@ -23,7 +25,7 @@ public class AudioManager {
         currentMusicType = audioType;
         currentMusic = assetManager.get(audioType.getFilePath(), Music.class);
         currentMusic.setLooping(true);
-        currentMusic.setVolume(audioType.getVolume());
+        currentMusic.setVolume(audioType.getVolume() * ProjectGame.getInstance().getPreferences().getMusicVolume());
         currentMusic.play();
     }
 }

@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.poproject.game.audio.AudioManager;
+import com.poproject.game.audio.AudioType;
 import com.poproject.game.screen.AbstractScreen;
 import com.poproject.game.screen.LoadingScreen;
 import com.poproject.game.screen.ScreenType;
@@ -63,6 +64,7 @@ public class ProjectGame extends Game {
 	}
 
 	public void setScreen(final ScreenType screenType){
+		if(screenType == ScreenType.GAME)audioManager.playAudio(AudioType.MAINTHEME);
 		AbstractScreen screen = screenCache.get(screenType);
 		if(screen == null){
 			try{

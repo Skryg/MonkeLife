@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.poproject.game.Assets;
 import com.poproject.game.State;
+import com.poproject.game.audio.AudioType;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
@@ -102,9 +103,11 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void pause() {
         state = State.PAUSE;
+        ProjectGame.getInstance().getAudioManager().playAudio(AudioType.NONE);
     }
     @Override
-    public void resume() {state = State.RUNNING;}
+    public void resume() {state = State.RUNNING;
+        ProjectGame.getInstance().getAudioManager().playAudio(AudioType.MAINTHEME);}
     @Override
     public void hide() {}
 

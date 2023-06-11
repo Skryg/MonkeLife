@@ -1,6 +1,7 @@
 package com.poproject.game.etcs;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -60,6 +61,11 @@ public class ComponentBuilder {
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
         enemyComponent.focusBody = followBody;
         return enemyComponent;
-
     }
+    public HealthBallComponent createHealthBallComponent(Entity followed){
+        HealthBallComponent hbc =  engine.createComponent(HealthBallComponent.class);
+        hbc.followedEntity = followed;
+        return hbc;
+    }
+
 }

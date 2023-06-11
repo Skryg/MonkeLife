@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.poproject.game.ProjectGame;
+import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.TextureComponent;
 import com.poproject.game.etcs.components.BodyComponent;
 
@@ -124,6 +125,9 @@ public class RenderingSystem extends SortedIteratingSystem {
     private static class ZComparator implements Comparator<Entity>{
         @Override
         public int compare(Entity entityA, Entity entityB){
+            if(entityA.getComponent(TextureComponent.class).priority)return 1;
+            if(entityB.getComponent(TextureComponent.class).priority)return -1;
+
             return (int)Math.signum(
                     ComponentMapper.getFor(BodyComponent.class).get(entityA).positionZ -
                             ComponentMapper.getFor(BodyComponent.class).get(entityB).positionZ

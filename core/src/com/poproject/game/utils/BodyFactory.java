@@ -91,7 +91,7 @@ public class BodyFactory {
 //        return boxBody;
 //    }
     public Body createProjectileBody(Vector2 startPos){
-        final float projectileRadius = 0.2f;
+        final float projectileRadius = 2f;
 
         resetBodyAndFixtureDef();
         bodyDef.position.set(startPos);
