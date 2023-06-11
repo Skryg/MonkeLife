@@ -23,10 +23,10 @@ public class PlayerAttackSystem  extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
+        final PlayerWeaponComponent pwc = GameEngine.playerWeaponComponentMapper.get(entity);
+        if(pwc == null || !pwc.readyToAttack(deltaTime))return;
         if(!Gdx.input.isButtonPressed(Input.Buttons.LEFT))return;
 
-        final PlayerWeaponComponent pwc = GameEngine.playerWeaponComponentMapper.get(entity);
-        if(pwc == null || !pwc.readyToAttack())return;
         attack(pwc, entity.getComponent(BodyComponent.class).body.getPosition());
     }
 
@@ -34,6 +34,7 @@ public class PlayerAttackSystem  extends IteratingSystem {
         if(pwc.isProjectile()){
             //spawn projectile, with parameters based on mouse world position
             gameEngine.entityBuilder.createProjectileEntity(worldMousePosition().x, worldMousePosition().y, playerPosition);
+            pwc.fire();
         }
     }
 

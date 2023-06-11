@@ -50,6 +50,9 @@ public class EntityBuilder {
         projectileComponent.destY = destY;
         projectile.add(projectileComponent);
 
+        //setting life-time
+
+
         //Body component
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
         Body projectileBody = BodyFactory.getInstance().createProjectileBody(startPos);
@@ -60,5 +63,8 @@ public class EntityBuilder {
         projectileBody.applyLinearImpulse(velocity, projectileBody.getWorldCenter(), true);
 
         bodyComponent.body = projectileBody;
+        projectile.add(bodyComponent);
+
+        engine.addEntity(projectile);
     }
 }
