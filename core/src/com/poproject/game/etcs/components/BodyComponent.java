@@ -14,5 +14,13 @@ public class BodyComponent implements Component, Pool.Poolable {
         if(body == null)return;
         body.getWorld().destroyBody(body);
     }
+
+    public void applySpeed(float speedX, float speedY, int scaleMulti){
+        if(speedX < 0) scale.x = Math.min(-scale.x, scale.x)*scaleMulti;
+        if(speedX > 0) scale.x = Math.max(-scale.x, scale.x)*scaleMulti;
+        body.applyLinearImpulse((speedX - body.getLinearVelocity().x)* body.getMass(),
+                (speedY - body.getLinearVelocity().y)* body.getMass(),
+                body.getWorldCenter().x, body.getWorldCenter().y, true);
+    }
 }
 

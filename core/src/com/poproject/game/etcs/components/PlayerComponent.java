@@ -7,7 +7,7 @@ public class PlayerComponent extends Damageable {
     public int manaPoints;
 
     public PlayerComponent() {
-        super("", 100, 10, 20, true);
+        super("", 100, 10, true);
         level = 1;
         xp = 0;
         manaPoints = 100;

@@ -14,13 +14,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
-public class PreferencesScreen implements Screen {
+public class PreferencesScreen extends AbstractScreen {
     private ProjectGame parent;
     private Stage stage;
 
     public PreferencesScreen(ProjectGame projectGame){
+        super(new ScreenViewport());
         parent = projectGame;
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(getScreenViewport());
     }
     @Override
     public void show() {

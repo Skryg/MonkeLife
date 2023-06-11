@@ -81,7 +81,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         mapRenderer.setView(cam);
         mapRenderer.render();
         // sort the renderQueue based on z index
-        renderQueue.sort(comparator);
+//        renderQueue.sort(comparator);
 
         // update camera and sprite batch
         cam.update();
@@ -119,11 +119,6 @@ public class RenderingSystem extends SortedIteratingSystem {
     @Override
     public void processEntity(Entity entity, float deltaTime) {
         renderQueue.add(entity);
-    }
-
-    // convenience method to get camera
-    public OrthographicCamera getCamera() {
-        return cam;
     }
 
     private static class ZComparator implements Comparator<Entity>{

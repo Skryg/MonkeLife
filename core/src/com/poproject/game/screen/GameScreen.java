@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.poproject.game.Assets;
 import com.poproject.game.State;
 import com.poproject.game.etcs.GameEngine;
@@ -20,32 +21,28 @@ import com.poproject.game.WorldContactListener;
 import com.poproject.game.map.CollisionArea;
 import com.poproject.game.map.Map;
 import com.poproject.game.utils.BodyFactory;
+import com.sun.org.apache.xml.internal.dtm.ref.CoroutineManager;
 
 import static com.poproject.game.ProjectGame.*;
 
-public class GameScreen implements Screen {
+public class GameScreen extends AbstractScreen {
 
 //    private final Body player;
     private final AssetManager assetManager;
     private final OrthogonalTiledMapRenderer mapRenderer;
-    private final OrthographicCamera gameCamera;
     private final GameEngine gameEngine;
     private final Box2DDebugRenderer box2DDebugRenderer;
     private final WorldContactListener worldContactListener;
     private final World world;
     private final Map map;
     private float accumulator;
-    private FitViewport screenViewport;
 
     public GameScreen(final ProjectGame context){
+        super(new FitViewport(16, 9, new OrthographicCamera()));
+        ProjectGame.getInstance().setGameCamera((OrthographicCamera) getScreenViewport().getCamera());
         accumulator = 0f;
         assetManager = context.getAssetManager();
-
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
-
-        gameCamera = new OrthographicCamera();
-        screenViewport = new FitViewport(16, 9, gameCamera);
-
 
         box2DDebugRenderer = new Box2DDebugRenderer();
         world = new World(new Vector2(0, 0f), false);
@@ -56,6 +53,7 @@ public class GameScreen implements Screen {
 
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
+        gameEngine.spawnEnemy(new Vector2(7.5f, 3f));
         map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
     }
@@ -87,14 +85,12 @@ public class GameScreen implements Screen {
                     world.step(FIXED_TIME_STEP, 6, 2);
                     accumulator -= FIXED_TIME_STEP;
                 }
-                box2DDebugRenderer.render(world, screenViewport.getCamera().combined);
+                box2DDebugRenderer.render(world, getCamera().combined);
                 break;
             case PAUSE:
                 ProjectGame.getInstance().setScreen(ScreenType.PAUSE);
                 break;
         }
-
-
     }
 
     public Box2DDebugRenderer getDebugRenderer(){return box2DDebugRenderer;}
@@ -105,12 +101,12 @@ public class GameScreen implements Screen {
         state = State.PAUSE;
     }
     @Override
-    public void resume() {}
+    public void resume() {state = State.RUNNING;}
     @Override
     public void hide() {}
 
     public void resize(final int width, final int height){
-        screenViewport.update(width, height);
+        getScreenViewport().update(width, height);
     }
     @Override
     public void dispose() {
@@ -118,8 +114,4 @@ public class GameScreen implements Screen {
         box2DDebugRenderer.dispose();
     }
 
-    public OrthographicCamera getGameCamera(){return gameCamera;}
-    public FitViewport getScreenViewport() {
-        return screenViewport;
-    }
 }

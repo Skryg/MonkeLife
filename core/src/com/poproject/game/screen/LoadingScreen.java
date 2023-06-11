@@ -13,12 +13,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
-public class LoadingScreen implements Screen {
+public class LoadingScreen extends AbstractScreen {
     private final AssetManager assetManager;
     private final Stage stage;
     private Label loadingText;
     public LoadingScreen(ProjectGame context){
-        stage = new Stage(new ScreenViewport());
+        super(new ScreenViewport());
+        stage = new Stage(getScreenViewport());
         assetManager = context.getAssetManager();
     }
 

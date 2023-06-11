@@ -13,12 +13,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.State;
-public class PauseScreen implements Screen {
+public class PauseScreen extends AbstractScreen {
     Stage stage;
     ProjectGame parent;
     public PauseScreen(ProjectGame projectGame){
+        super(new ScreenViewport());
         parent = projectGame;
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(getScreenViewport());
     }
     @Override
     public void show() {

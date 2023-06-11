@@ -13,12 +13,13 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
-public class MenuScreen implements Screen {
+public class MenuScreen extends AbstractScreen {
     Stage stage;
     ProjectGame parent;
     public MenuScreen(ProjectGame projectGame){
+        super(new ScreenViewport());
         parent = projectGame;
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(getScreenViewport());
     }
     @Override
     public void show() {
