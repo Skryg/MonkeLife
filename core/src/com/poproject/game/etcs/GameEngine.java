@@ -8,8 +8,6 @@ import com.poproject.game.etcs.components.*;
 import com.poproject.game.etcs.systems.*;
 import com.poproject.game.screen.GameScreen;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class GameEngine extends PooledEngine {
     public static ComponentMapper<PlayerComponent> playerComponentMapper = ComponentMapper.getFor(PlayerComponent.class);
     public static ComponentMapper<BodyComponent> bodyComponentComponentMapper = ComponentMapper.getFor(BodyComponent.class);
@@ -20,6 +18,8 @@ public class GameEngine extends PooledEngine {
             ComponentMapper.getFor(MoveableComponent.class);
     public static ComponentMapper<EnemyComponent> enemyComponentMapper = ComponentMapper.getFor(EnemyComponent.class);
     public static ComponentMapper<ProjectileComponent> projectileComponentMapper = ComponentMapper.getFor(ProjectileComponent.class);
+    public static ComponentMapper<PlayerBuildingComponent> playerBuildingComponentMapper = ComponentMapper.getFor(PlayerBuildingComponent.class);
+    public static ComponentMapper<TowerComponent> towerComponentMapper = ComponentMapper.getFor(TowerComponent.class);
     public final EntityBuilder entityBuilder = new EntityBuilder(this);
 
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
@@ -31,6 +31,8 @@ public class GameEngine extends PooledEngine {
         this.addSystem(new EnemyMovementSystem());
         this.addSystem(new PlayerAttackSystem(gameScreen.getCamera(), this));
         this.addSystem(new ProjectileSystem(this));
+        this.addSystem(new PlayerBuildingSystem(gameScreen.getCamera(), this));
+        this.addSystem(new TowerShootingSystem(this));
         this.addSystem(new EnemyGenerateSystem(3, this));
     }
 

@@ -23,11 +23,21 @@ public class ProjectileSystem extends IteratingSystem {
     }
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        if(entity.getComponent(ProjectileComponent.class).hit)return;
+        //usuwanie pocisku jak dojdzie do celu
+        ProjectileComponent projectileComponent = GameEngine.projectileComponentMapper.get(entity);
+        projectileComponent.flightTime += deltaTime;
+        if(projectileComponent.flightTime > projectileComponent.maxFlightTime){
+            System.out.println("Destination");
+            projectileComponent.hit = true;
+            gameEngine.removeEntity(entity);
+            return;
+        }
+
+        if(projectileComponent.hit)return;
 
 //        System.out.println(entity.toString());
         BodyComponent bodyComponent = GameEngine.bodyComponentComponentMapper.get(entity);//entity.getComponent(BodyComponent.class);
-        ProjectileComponent projectileComponent = GameEngine.projectileComponentMapper.get(entity);//entity.getComponent(ProjectileComponent.class);
+        //entity.getComponent(ProjectileComponent.class);
         Body projectileBody = bodyComponent.body;
 
         //kolizje z przeciwnikami
@@ -35,7 +45,7 @@ public class ProjectileSystem extends IteratingSystem {
         final float hitDistance = 0.9f;
 
         for(Entity enemy : gameEngine.getEntitiesFor(Family.all(EnemyComponent.class, BodyComponent.class).get())){
-            System.out.println(enemy.toString());
+//            System.out.println(enemy.toString());
             if(GameEngine.bodyComponentComponentMapper.get(enemy).body.getPosition().sub(projectileBody.getPosition()).len() < hitDistance){
                 Collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity);
                 return;
@@ -52,15 +62,12 @@ public class ProjectileSystem extends IteratingSystem {
 //                }
 //            }
 //        }
-
-        //usuwanie pocisku jak dojdzie do celu
     }
 
     void Collision(ProjectileComponent pc, Damageable dm, Entity projectileEntity){
 //        System.out.println("REMOVED!");
         pc.hit = true;
         dm.getDamage(pc.dmg);
-        projectileEntity.getComponent(BodyComponent.class);
         gameEngine.removeEntity(projectileEntity);
     }
 }

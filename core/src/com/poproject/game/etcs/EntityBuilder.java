@@ -8,6 +8,7 @@ import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.etcs.components.ProjectileComponent;
+import com.poproject.game.etcs.components.TextureComponent;
 import com.poproject.game.screen.ScreenType;
 import com.poproject.game.utils.BodyFactory;
 
@@ -28,6 +29,7 @@ public class EntityBuilder {
         entity.add(componentBuilder.createMoveableComponent(3f,1));
         entity.add(componentBuilder.createCameraComponent(ProjectGame.getInstance().getGameCamera()));
         entity.add(componentBuilder.craetePlayerWeaponComponent());
+        entity.add(componentBuilder.createPlayerBuildingComponent());
         return entity;
     }
 
@@ -42,6 +44,18 @@ public class EntityBuilder {
         return entity;
     }
 
+    public void createTowerEntity(float x, float y){
+//        Entity enem = createEnemy(new Vector2(x,y));
+//        engine.addEntity(enem);
+        Entity towerEntity = engine.createEntity();
+
+        towerEntity.add(componentBuilder.createTowerComponent());
+        towerEntity.add(componentBuilder.createBodyComponent(BodyFactory.getInstance().makeTowerBody(new Vector2(x, y)), new Vector2(0.05f,0.05f)));
+        towerEntity.add(componentBuilder.createTextureComponent(Assets.gorilla));
+
+        engine.addEntity(towerEntity);
+    }
+
     public void createProjectileEntity(float destX, float destY, Vector2 startPos){
         Entity projectile = engine.createEntity();
 
@@ -52,7 +66,8 @@ public class EntityBuilder {
         projectile.add(projectileComponent);
 
         //setting life-time
-
+        projectileComponent.maxFlightTime = ((new Vector2(destX, destY)).sub(startPos)).len() / projectileComponent.speed/6f;
+        projectileComponent.flightTime = 0f;
 
         //Body component
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
@@ -62,10 +77,17 @@ public class EntityBuilder {
         Vector2 velocity = (new Vector2(destX, destY)).sub(startPos);
         velocity.nor().scl(projectileComponent.speed).scl(projectileComponent.mass);
         projectileBody.applyLinearImpulse(velocity, projectileBody.getWorldCenter(), true);
+        projectileBody.applyAngularImpulse(200f, true);
 
         bodyComponent.body = projectileBody;
         projectile.add(bodyComponent);
 
+        //sprite
+        projectile.add(componentBuilder.createTextureComponent(Assets.banana));
+
         engine.addEntity(projectile);
+
+        System.out.println("X: " + destX + "Y: " + destY);
+//        System.out.println(projectileComponent.maxFlightTime + " " + projectileComponent.flightTime);
     }
 }

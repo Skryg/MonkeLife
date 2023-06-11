@@ -49,6 +49,13 @@ public class ComponentBuilder {
         return engine.createComponent(PlayerWeaponComponent.class);
     }
 
+    public PlayerBuildingComponent createPlayerBuildingComponent(){
+        return engine.createComponent(PlayerBuildingComponent.class);
+    }
+
+    public TowerComponent createTowerComponent(){
+        return engine.createComponent(TowerComponent.class);
+    }
     public EnemyComponent createEnemyComponent(Body followBody) {
         EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
         enemyComponent.focusBody = followBody;

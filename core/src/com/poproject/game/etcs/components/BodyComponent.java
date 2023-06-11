@@ -13,6 +13,7 @@ public class BodyComponent implements Component, Pool.Poolable {
     public void reset() {
         if(body == null)return;
         body.getWorld().destroyBody(body);
+        scale = new Vector2(1,1);
     }
 
     public void applySpeed(float speedX, float speedY, int scaleMulti){

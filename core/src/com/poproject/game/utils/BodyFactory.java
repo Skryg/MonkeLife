@@ -96,7 +96,7 @@ public class BodyFactory {
         resetBodyAndFixtureDef();
         bodyDef.position.set(startPos);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.fixedRotation = true;
+        bodyDef.fixedRotation = false;
         Body projectileBody = world.createBody(bodyDef);
 
         fixtureDef.isSensor = true;
@@ -136,6 +136,9 @@ public class BodyFactory {
         pShape.dispose();
         return playerBody;
     }
+    public Body makeTowerBody(Vector2 position){
+        return  makeEntityBody(position, (short)0, (short)0);
+    }
     public Body makePlayerBody(Vector2 playerStartPosition){
         return makeEntityBody(playerStartPosition, BIT_PLAYER, (short)(BIT_GROUND | BIT_ENEMY));
     }
@@ -167,6 +170,7 @@ public class BodyFactory {
         bodyDef.position.set(0,0);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
+        bodyDef.angularDamping = 0;
 
         fixtureDef.density = 1;
         fixtureDef.filter.maskBits = 0;
