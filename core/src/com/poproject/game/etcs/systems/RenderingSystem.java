@@ -121,11 +121,6 @@ public class RenderingSystem extends SortedIteratingSystem {
         renderQueue.add(entity);
     }
 
-    // convenience method to get camera
-    public OrthographicCamera getCamera() {
-        return cam;
-    }
-
     private static class ZComparator implements Comparator<Entity>{
         @Override
         public int compare(Entity entityA, Entity entityB){

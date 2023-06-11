@@ -19,19 +19,19 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.poproject.game.screen.AbstractScreen;
 import com.poproject.game.screen.LoadingScreen;
 import com.poproject.game.screen.ScreenType;
 
 import java.util.EnumMap;
 
 public class ProjectGame extends Game {
-	private EnumMap<ScreenType, Screen> screenCache;
-
+	private EnumMap<ScreenType, AbstractScreen> screenCache;
 	private AssetManager assetManager;
-	private OrthographicCamera gameCamera;
 	private SpriteBatch spriteBatch;
 	private float accumulator;
 	private AppPreferences preferences;
+	private OrthographicCamera gameCamera;
 
 	private static ProjectGame instance;
 	public static final float UNIT_SCALE = 1/1024f;
@@ -58,19 +58,31 @@ public class ProjectGame extends Game {
 	}
 
 	public void setScreen(final ScreenType screenType){
-		final Screen screen = screenCache.get(screenType);
+		AbstractScreen screen = screenCache.get(screenType);
 		if(screen == null){
 			try{
-				final Object newScreen = ClassReflection.getConstructor(screenType.getScreenClass(), ProjectGame.class).newInstance(this);
-				screenCache.put(screenType, (Screen)newScreen);
-				setScreen((Screen) newScreen);
+				screen = (AbstractScreen)ClassReflection.getConstructor(screenType.getScreenClass(), ProjectGame.class).newInstance(this);
+				screenCache.put(screenType, (AbstractScreen) screen);
+				setScreen((AbstractScreen) screen);
 			}catch(ReflectionException e){
 				throw new GdxRuntimeException("Screen" + screen + "was not created", e.getCause());
 			}
 		}else setScreen(screen);
 	}
+	//Return screen if exists or null
+	public AbstractScreen getScreen(ScreenType type){
+		return screenCache.get(type);
+	}
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
+
+	public OrthographicCamera getGameCamera() {
+		return gameCamera;
+	}
+
+	public void setGameCamera(OrthographicCamera gameCamera) {
+		this.gameCamera = gameCamera;
+	}
 
 	public void dispose(){
 		super.dispose();

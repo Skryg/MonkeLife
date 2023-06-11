@@ -26,6 +26,7 @@ public class CamFollowPlayerSystem extends IteratingSystem {
         Vector3 position = camera.position;
         position.x += (playerPosition.x - position.x) * lerp * deltaTime;
         position.y += (playerPosition.y - position.y) * lerp * deltaTime;
+
         camera.update();
         ProjectGame.getInstance().getSpriteBatch().setProjectionMatrix(camera.combined);
     }
