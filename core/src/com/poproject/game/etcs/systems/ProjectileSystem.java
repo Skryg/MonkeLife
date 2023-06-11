@@ -15,6 +15,8 @@ public class ProjectileSystem extends IteratingSystem {
         BodyComponent bodyComponent = entity.getComponent(BodyComponent.class);
         ProjectileComponent projectileComponent = entity.getComponent(ProjectileComponent.class);
 
+        //usuwanie pocisku jak dojdzie do celu (es)
 
+        //kolizje z przeciwnikami
     }
 }

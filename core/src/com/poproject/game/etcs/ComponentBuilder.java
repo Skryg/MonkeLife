@@ -45,6 +45,9 @@ public class ComponentBuilder {
         moveableComponent.directionScale = directionScale;
         return moveableComponent;
     }
+    public PlayerWeaponComponent craetePlayerWeaponComponent(){
+        return engine.createComponent(PlayerWeaponComponent.class);
+    }
 
     public EnemyComponent createEnemyComponent() {
         return engine.createComponent(EnemyComponent.class);

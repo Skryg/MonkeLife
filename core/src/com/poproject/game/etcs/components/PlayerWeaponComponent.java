@@ -12,5 +12,4 @@ public class PlayerWeaponComponent implements Component, Pool.Poolable {
     public boolean isProjectile(){
         return true;
     }
-
 }

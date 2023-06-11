@@ -112,9 +112,10 @@ public class BodyFactory {
 
         return projectileBody;
     }
-    public Body makePlayerBody(Vector2 playerStartPosition){
+
+    public Body makeEntityBody(Vector2 startPosition, short categoryBits, short maskBits){
         resetBodyAndFixtureDef();
-        bodyDef.position.set(playerStartPosition);
+        bodyDef.position.set(startPosition);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = true;
@@ -125,8 +126,8 @@ public class BodyFactory {
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
         fixtureDef.friction = 0.69f;
-        fixtureDef.filter.categoryBits = BIT_PLAYER;
-        fixtureDef.filter.maskBits = BIT_GROUND;
+        fixtureDef.filter.categoryBits = categoryBits;
+        fixtureDef.filter.maskBits = maskBits;
 
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.5f, 0.5f);
@@ -135,7 +136,13 @@ public class BodyFactory {
         pShape.dispose();
         return playerBody;
     }
+    public Body makePlayerBody(Vector2 playerStartPosition){
+        return makeEntityBody(playerStartPosition, BIT_PLAYER, (short)(BIT_GROUND | BIT_ENEMY));
+    }
 
+    public Body makeEnemyBody(Vector2 startPos){
+        return makeEntityBody(startPos, BIT_ENEMY, (short)(BIT_GROUND | BIT_PLAYER));
+    }
     private void createCollisionArea(CollisionArea ca){
         resetBodyAndFixtureDef();
         bodyDef.position.set(ca.getStartX(), ca.getStartY());

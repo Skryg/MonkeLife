@@ -27,13 +27,14 @@ public class EntityBuilder {
         entity.add(componentBuilder.createTextureComponent(Assets.player));
         entity.add(componentBuilder.createMoveableComponent(3f,1));
         entity.add(componentBuilder.createCameraComponent(ProjectGame.getInstance().getGameCamera()));
+        entity.add(componentBuilder.craetePlayerWeaponComponent());
         return entity;
     }
 
     public Entity createEnemy(Vector2 startPosition){
         Entity entity = engine.createEntity();
         entity.add(componentBuilder.createEnemyComponent());
-        Body body = BodyFactory.getInstance().makePlayerBody(startPosition);
+        Body body = BodyFactory.getInstance().makeEnemyBody(startPosition);
         entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
         entity.add(componentBuilder.createMoveableComponent(3f,-1));
         entity.add(componentBuilder.createTextureComponent(Assets.enemy));
