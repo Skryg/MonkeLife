@@ -91,12 +91,13 @@ public class BodyFactory {
 //        return boxBody;
 //    }
     public Body createProjectileBody(Vector2 startPos){
-        final float projectileRadius = 2f;
+        final float projectileRadius = 0.2f;
 
         resetBodyAndFixtureDef();
         bodyDef.position.set(startPos);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.fixedRotation = false;
+        bodyDef.angularDamping = 0f;
         Body projectileBody = world.createBody(bodyDef);
 
         fixtureDef.isSensor = true;

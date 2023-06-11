@@ -92,6 +92,7 @@ public class EntityBuilder {
         //Body component
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
         Body projectileBody = BodyFactory.getInstance().createProjectileBody(startPos);
+        bodyComponent.scale = new Vector2(0.25f, 0.25f);
 
         //setting velocity
         Vector2 velocity = (new Vector2(destX, destY)).sub(startPos);
