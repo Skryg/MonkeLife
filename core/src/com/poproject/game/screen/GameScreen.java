@@ -10,9 +10,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.poproject.game.Assets;
+import com.poproject.game.GUI.GUI;
 import com.poproject.game.State;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
@@ -36,6 +38,7 @@ public class GameScreen implements Screen {
     private final Map map;
     private float accumulator;
     private FitViewport screenViewport;
+    private GUI gui;
 
     public GameScreen(final ProjectGame context){
         accumulator = 0f;
@@ -67,6 +70,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        gui = new GUI(new Stage());
         mapRenderer.setMap(assetManager.get(Assets.map, TiledMap.class));
         Gdx.input.setInputProcessor(null);
     }
@@ -88,6 +92,7 @@ public class GameScreen implements Screen {
                     accumulator -= FIXED_TIME_STEP;
                 }
                 box2DDebugRenderer.render(world, screenViewport.getCamera().combined);
+
                 break;
             case PAUSE:
                 ProjectGame.getInstance().setScreen(ScreenType.PAUSE);

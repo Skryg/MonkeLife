@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
+import com.poproject.game.GUI.GUI;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.etcs.components.TextureComponent;
 import com.poproject.game.etcs.components.BodyComponent;
@@ -81,14 +82,14 @@ public class RenderingSystem extends SortedIteratingSystem {
         mapRenderer.setView(cam);
         mapRenderer.render();
         // sort the renderQueue based on z index
-        renderQueue.sort(comparator);
+//        renderQueue.sort(comparator);
 
         // update camera and sprite batch
         cam.update();
         batch.setProjectionMatrix(cam.combined);
         batch.enableBlending();
         batch.begin();
-
+        GUI.render(batch);
         // loop through each entity in our render queue
         for (Entity entity : renderQueue) {
             TextureComponent tex = textureM.get(entity);

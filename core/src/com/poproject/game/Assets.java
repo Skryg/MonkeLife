@@ -11,14 +11,20 @@ public class Assets {
     public static final String map = "map/mapaProjekt.tmx";
     public static final String player = "player.png";
     public static final String skinUI = "skin/craftacular-ui.json";
+    public static final String hp = "hp.png";
+    public static final String hpback = "hpback.png";
+    public static final String inventory = "jason/uiskin.json";
     public static void loadSkin(AssetManager assetManager){
         assetManager.load(skinUI, Skin.class);
         assetManager.finishLoading();
     }
     public static void load(AssetManager assetManager){
         assetManager.load(player, Texture.class);
+        assetManager.load(hp,Texture.class);
+        assetManager.load(hpback,Texture.class);
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
         assetManager.load(map, TiledMap.class);
+
     }
 
 }

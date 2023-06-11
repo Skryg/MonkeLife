@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
+import com.poproject.game.inventory.InventoryActor;
 
 public class PlayerControlSystem extends IteratingSystem {
 
@@ -33,6 +34,13 @@ public class PlayerControlSystem extends IteratingSystem {
             speedY*=2;
         }
 
+        if(Gdx.input.isKeyPressed(Input.Keys.I)){
+            if(InventoryActor.mInventoryWindow.isVisible()){
+                InventoryActor.mInventoryWindow.setVisible(false);
+            } else {
+                InventoryActor.mInventoryWindow.setVisible(true);
+            }
+        }
         if(speedX < 0) b2body.scale.x = Math.min(-b2body.scale.x, b2body.scale.x);
         if(speedX > 0) b2body.scale.x = Math.max(-b2body.scale.x, b2body.scale.x);
         b2body.body.applyLinearImpulse((speedX - b2body.body.getLinearVelocity().x)* b2body.body.getMass(),
