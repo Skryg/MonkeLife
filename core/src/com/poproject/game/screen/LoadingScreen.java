@@ -12,15 +12,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
+import com.poproject.game.audio.AudioManager;
 
 public class LoadingScreen extends AbstractScreen {
     private final AssetManager assetManager;
+    private final AudioManager audioManager;
     private final Stage stage;
     private Label loadingText;
     public LoadingScreen(ProjectGame context){
         super(new ScreenViewport());
         stage = new Stage(getScreenViewport());
         assetManager = context.getAssetManager();
+        audioManager = context.getAudioManager();
     }
 
     public void show() {
@@ -33,7 +36,7 @@ public class LoadingScreen extends AbstractScreen {
         loadingText = new Label("Loading: ", skin);
         table.add(loadingText);
 
-        Assets.load(assetManager);
+        Assets.load(assetManager, audioManager);
     }
 
     @Override

@@ -44,9 +44,15 @@ public class EntityBuilder {
     }
 
     public void createTowerEntity(float x, float y){
-        Entity enem = createEnemy(new Vector2(x,y));
-        engine.addEntity(enem);
-//        Entity towerEntity = engine.createEntity();
+//        Entity enem = createEnemy(new Vector2(x,y));
+//        engine.addEntity(enem);
+        Entity towerEntity = engine.createEntity();
+
+        towerEntity.add(componentBuilder.createTowerComponent());
+        towerEntity.add(componentBuilder.createBodyComponent(BodyFactory.getInstance().makeTowerBody(new Vector2(x, y)), new Vector2(0.05f,0.05f)));
+        towerEntity.add(componentBuilder.createTextureComponent(Assets.gorilla));
+
+        engine.addEntity(towerEntity);
     }
 
     public void createProjectileEntity(float destX, float destY, Vector2 startPos){
@@ -70,6 +76,7 @@ public class EntityBuilder {
         Vector2 velocity = (new Vector2(destX, destY)).sub(startPos);
         velocity.nor().scl(projectileComponent.speed).scl(projectileComponent.mass);
         projectileBody.applyLinearImpulse(velocity, projectileBody.getWorldCenter(), true);
+        projectileBody.applyAngularImpulse(200f, true);
 
         bodyComponent.body = projectileBody;
         projectile.add(bodyComponent);

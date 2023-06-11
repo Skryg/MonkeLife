@@ -53,6 +53,9 @@ public class ComponentBuilder {
         return engine.createComponent(PlayerBuildingComponent.class);
     }
 
+    public TowerComponent createTowerComponent(){
+        return engine.createComponent(TowerComponent.class);
+    }
     public EnemyComponent createEnemyComponent() {
         return engine.createComponent(EnemyComponent.class);
     }

@@ -8,6 +8,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.poproject.game.ProjectGame;
+import com.poproject.game.audio.AudioType;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.PlayerBuildingComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
@@ -34,6 +36,7 @@ public class PlayerBuildingSystem extends IteratingSystem {
     private void build(PlayerBuildingComponent pbc){
         gameEngine.entityBuilder.createTowerEntity(worldMousePosition().x, worldMousePosition().y);
         pbc.build();
+        ProjectGame.getInstance().getAudioManager().playAudio(AudioType.TOWER);
     }
 
     private Vector2 worldMousePosition(){

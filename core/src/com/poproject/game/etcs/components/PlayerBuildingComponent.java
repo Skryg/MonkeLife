@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class PlayerBuildingComponent implements Pool.Poolable, Component {
     private float timePassed = 0f;
-    private final float rechargeTime = 1f;
+    private final float rechargeTime = 5f;
     @Override
     public void reset() {
         timePassed = 0f;

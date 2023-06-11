@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.poproject.game.audio.AudioManager;
 import com.poproject.game.screen.AbstractScreen;
 import com.poproject.game.screen.LoadingScreen;
 import com.poproject.game.screen.ScreenType;
@@ -28,6 +29,7 @@ import java.util.EnumMap;
 public class ProjectGame extends Game {
 	private EnumMap<ScreenType, AbstractScreen> screenCache;
 	private AssetManager assetManager;
+	private AudioManager audioManager;
 	private SpriteBatch spriteBatch;
 	private float accumulator;
 	private AppPreferences preferences;
@@ -50,8 +52,9 @@ public class ProjectGame extends Game {
 		accumulator = 0f;
 		preferences = new AppPreferences();
 
-		//assets
+		//assets + audio
 		assetManager = new AssetManager();
+		audioManager = new AudioManager(assetManager);
 		Assets.loadSkin(assetManager);
 
 		screenCache = new EnumMap<>(ScreenType.class);
@@ -76,6 +79,8 @@ public class ProjectGame extends Game {
 	}
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
+
+	public AudioManager getAudioManager() {return audioManager;	}
 
 	public OrthographicCamera getGameCamera() {
 		return gameCamera;
