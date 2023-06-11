@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
+import com.poproject.game.etcs.components.BodyComponent;
+import com.poproject.game.etcs.components.ProjectileComponent;
 import com.poproject.game.screen.ScreenType;
 import com.poproject.game.utils.BodyFactory;
 
@@ -38,4 +40,24 @@ public class EntityBuilder {
         return entity;
     }
 
+    public void createProjectileEntity(float destX, float destY, Vector2 startPos){
+        Entity projectile = engine.createEntity();
+
+        //projectileComponent
+        ProjectileComponent projectileComponent = engine.createComponent(ProjectileComponent.class);
+        projectileComponent.destX = destX;
+        projectileComponent.destY = destY;
+        projectile.add(projectileComponent);
+
+        //Body component
+        BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
+        Body projectileBody = BodyFactory.getInstance().createProjectileBody(startPos);
+
+        //setting velocity
+        Vector2 velocity = (new Vector2(destX, destY)).sub(startPos);
+        velocity.nor().scl(projectileComponent.speed).scl(projectileComponent.mass);
+        projectileBody.applyLinearImpulse(velocity, projectileBody.getWorldCenter(), true);
+
+        bodyComponent.body = projectileBody;
+    }
 }

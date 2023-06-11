@@ -28,6 +28,7 @@ public class GameEngine extends PooledEngine {
         this.addSystem(new CamFollowPlayerSystem());
         this.addSystem(new RenderingSystem(gameScreen.getMapRenderer(), (OrthographicCamera) gameScreen.getCamera()));
         this.addSystem(new EnemyMovementSystem());
+        this.addSystem(new PlayerAttackSystem(gameScreen.getCamera(), this));
     }
 
 

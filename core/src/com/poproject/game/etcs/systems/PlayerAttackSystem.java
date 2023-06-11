@@ -8,16 +8,17 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.poproject.game.etcs.EntityFactory;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
 import com.poproject.game.etcs.components.PlayerWeaponComponent;
 public class PlayerAttackSystem  extends IteratingSystem {
     private final Camera camera;
-    public PlayerAttackSystem(Camera camera) {
+    private final GameEngine gameEngine;
+    public PlayerAttackSystem(Camera camera, GameEngine gameEngine) {
         super(Family.all(PlayerComponent.class, PlayerWeaponComponent.class).get());
         this.camera = camera;
+        this.gameEngine = gameEngine;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class PlayerAttackSystem  extends IteratingSystem {
     private void attack(PlayerWeaponComponent pwc, Vector2 playerPosition){
         if(pwc.isProjectile()){
             //spawn projectile, with parameters based on mouse world position
-            EntityFactory.getInstance().createProjectileEntity(worldMousePosition().x, worldMousePosition().y, playerPosition);
+            gameEngine.entityBuilder.createProjectileEntity(worldMousePosition().x, worldMousePosition().y, playerPosition);
         }
     }
 
