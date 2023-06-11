@@ -30,8 +30,10 @@ public class PlayerControlSystem extends IteratingSystem {
         if(Gdx.input.isKeyPressed(Input.Keys.S)) speedY += -moveableComponent.speed;
 
         if(speedX != 0 && speedY != 0){
-            speedX/=1.5;
-            speedY/=1.5;
+            float sqrt = (float) Math.sqrt(Math.abs(moveableComponent.speed));
+
+            speedX*=sqrt/Math.abs(speedX);
+            speedY*=sqrt/Math.abs(speedY);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)){

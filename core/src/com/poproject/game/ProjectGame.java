@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.poproject.game.screen.AbstractScreen;
 import com.poproject.game.screen.LoadingScreen;
 import com.poproject.game.screen.ScreenType;
+import com.poproject.game.utils.RandomVectorGenerator;
 
 import java.util.EnumMap;
 
@@ -49,7 +50,7 @@ public class ProjectGame extends Game {
 		spriteBatch = new SpriteBatch();
 		accumulator = 0f;
 		preferences = new AppPreferences();
-
+		RandomVectorGenerator.setInterval(new Vector2(2,2), new Vector2(7,7));
 		//assets
 		assetManager = new AssetManager();
 		Assets.loadSkin(assetManager);
@@ -76,11 +77,9 @@ public class ProjectGame extends Game {
 	}
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
-
 	public OrthographicCamera getGameCamera() {
 		return gameCamera;
 	}
-
 	public void setGameCamera(OrthographicCamera gameCamera) {
 		this.gameCamera = gameCamera;
 	}

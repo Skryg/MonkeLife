@@ -1,5 +1,7 @@
 package com.poproject.game.screen;
 
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -18,6 +20,8 @@ import com.poproject.game.State;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.WorldContactListener;
+import com.poproject.game.etcs.components.PlayerComponent;
+import com.poproject.game.etcs.systems.EnemyGenerateSystem;
 import com.poproject.game.map.CollisionArea;
 import com.poproject.game.map.Map;
 import com.poproject.game.utils.BodyFactory;
@@ -53,7 +57,6 @@ public class GameScreen extends AbstractScreen {
 
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
-        gameEngine.spawnEnemy(new Vector2(7.5f, 3f));
         map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
     }

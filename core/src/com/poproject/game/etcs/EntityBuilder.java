@@ -31,13 +31,14 @@ public class EntityBuilder {
         return entity;
     }
 
-    public Entity createEnemy(Vector2 startPosition){
+    public Entity createEnemy(Vector2 startPosition, Body followBody){
         Entity entity = engine.createEntity();
-        entity.add(componentBuilder.createEnemyComponent());
+        entity.add(componentBuilder.createEnemyComponent(followBody));
         Body body = BodyFactory.getInstance().makeEnemyBody(startPosition);
         entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
-        entity.add(componentBuilder.createMoveableComponent(3f,-1));
+        entity.add(componentBuilder.createMoveableComponent(1.5f,-1));
         entity.add(componentBuilder.createTextureComponent(Assets.enemy));
+
         return entity;
     }
 

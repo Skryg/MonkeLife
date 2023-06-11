@@ -49,7 +49,10 @@ public class ComponentBuilder {
         return engine.createComponent(PlayerWeaponComponent.class);
     }
 
-    public EnemyComponent createEnemyComponent() {
-        return engine.createComponent(EnemyComponent.class);
+    public EnemyComponent createEnemyComponent(Body followBody) {
+        EnemyComponent enemyComponent = engine.createComponent(EnemyComponent.class);
+        enemyComponent.focusBody = followBody;
+        return enemyComponent;
+
     }
 }
