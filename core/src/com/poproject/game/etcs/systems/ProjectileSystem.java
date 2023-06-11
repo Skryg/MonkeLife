@@ -42,7 +42,7 @@ public class ProjectileSystem extends IteratingSystem {
         for(Entity enemy : gameEngine.getEntitiesFor(Family.all(EnemyComponent.class, BodyComponent.class).get())){
 //            System.out.println(enemy.toString());
             if(GameEngine.bodyComponentComponentMapper.get(enemy).body.getPosition().sub(projectileBody.getPosition()).len() < hitDistance){
-                collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity);
+                collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity, enemy);
                 return;
             }
         }
@@ -59,10 +59,11 @@ public class ProjectileSystem extends IteratingSystem {
 //        }
     }
 
-    void collision(ProjectileComponent pc, Damageable dm, Entity projectileEntity){
+    void collision(ProjectileComponent pc, Damageable dm, Entity projectileEntity, Entity damagableEntity){
 //        System.out.println("REMOVED!");
         pc.hit = true;
         dm.getDamage(pc.dmg);
         gameEngine.removeEntity(projectileEntity);
+
     }
 }

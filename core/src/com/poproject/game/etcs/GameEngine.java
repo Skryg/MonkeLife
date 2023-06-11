@@ -33,7 +33,8 @@ public class GameEngine extends PooledEngine {
         this.addSystem(new ProjectileSystem(this));
         this.addSystem(new PlayerBuildingSystem(gameScreen.getCamera(), this));
         this.addSystem(new TowerShootingSystem(this));
-        this.addSystem(new EnemyGenerateSystem(3, this));
+        this.addSystem(new EnemyGenerateSystem(3, this, 15));
+        this.addSystem(new DeleteDeadEnemies(this));
     }
 
 

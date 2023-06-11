@@ -9,7 +9,7 @@ public class ProjectileComponent implements Component, Pool.Poolable {
     public float destY = 0;
     public final float speed = 2f;
     public final float mass = 1f;
-    public final int dmg = 5;
+    public final int dmg = 20;
     public boolean hit = false;
     public float flightTime = 0f;
     public float maxFlightTime = 0.5f;

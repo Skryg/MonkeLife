@@ -8,16 +8,32 @@ import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.utils.RandomVectorGenerator;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class EnemyGenerateSystem extends IntervalSystem {
     GameEngine engine;
     Vector2 position;
 
-    public EnemyGenerateSystem(float interval, GameEngine engine){
+    int maxEnemies = 10;
+
+    public static int getEnemyCount() {
+        return enemyCount;
+    }
+
+    public static void enemyDecrementCount(){
+        --enemyCount;
+    }
+
+    static int enemyCount = 0;
+
+
+
+    public EnemyGenerateSystem(float interval, GameEngine engine, int maxEnemies){
         super(interval);
         this.engine = engine;
-
+        this.maxEnemies = maxEnemies;
     }
     @Override
     protected void updateInterval() {
@@ -26,7 +42,12 @@ public class EnemyGenerateSystem extends IntervalSystem {
             if(player == null) return;
             position = player.getComponent(BodyComponent.class).body.getPosition();
         }
-        engine.spawnEnemy(RandomVectorGenerator.getNotClose(position, 3));
+        System.out.println("sth");
+        if(enemyCount <= maxEnemies){
+            System.out.println("sth2");
 
+            ++enemyCount;
+            engine.spawnEnemy(RandomVectorGenerator.getNotClose(position, 3));
+        }
     }
 }
