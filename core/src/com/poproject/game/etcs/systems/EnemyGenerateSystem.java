@@ -34,6 +34,7 @@ public class EnemyGenerateSystem extends IntervalSystem {
         super(interval);
         this.engine = engine;
         this.maxEnemies = maxEnemies;
+        enemyCount = 0;
     }
     @Override
     protected void updateInterval() {

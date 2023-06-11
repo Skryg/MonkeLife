@@ -18,9 +18,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.poproject.game.Assets;
 import com.poproject.game.State;
 import com.poproject.game.audio.AudioType;
+import com.poproject.game.*;
 import com.poproject.game.etcs.GameEngine;
-import com.poproject.game.ProjectGame;
-import com.poproject.game.WorldContactListener;
 import com.poproject.game.etcs.components.PlayerComponent;
 import com.poproject.game.etcs.systems.EnemyGenerateSystem;
 import com.poproject.game.map.CollisionArea;
@@ -35,9 +34,9 @@ public class GameScreen extends AbstractScreen {
 //    private final Body player;
     private final AssetManager assetManager;
     private final OrthogonalTiledMapRenderer mapRenderer;
-    private final GameEngine gameEngine;
+    private GameEngine gameEngine;
     private final Box2DDebugRenderer box2DDebugRenderer;
-    private final WorldContactListener worldContactListener;
+//    private final WorldContactListener worldContactListener;
     private final World world;
     private final Map map;
     private float accumulator;
@@ -53,11 +52,10 @@ public class GameScreen extends AbstractScreen {
         world = new World(new Vector2(0, 0f), false);
         BodyFactory.setWorld(world);
 
-        worldContactListener = new WorldContactListener();
-        world.setContactListener(worldContactListener);
+
+        world.setContactListener(new B2dContactListener());
 
         gameEngine = new GameEngine(this);
-        gameEngine.spawnPlayer();
         map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
     }
@@ -118,6 +116,13 @@ public class GameScreen extends AbstractScreen {
     public void dispose() {
         world.dispose();
         box2DDebugRenderer.dispose();
+        mapRenderer.dispose();
+
     }
 
+    @Override
+    public void reset() {
+        gameEngine.dispose();
+        gameEngine = new GameEngine(this);
+    }
 }

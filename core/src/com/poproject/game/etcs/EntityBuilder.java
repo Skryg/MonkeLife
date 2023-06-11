@@ -3,6 +3,7 @@ package com.poproject.game.etcs;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
@@ -28,8 +29,12 @@ public class EntityBuilder {
         final Vector2 scale = new Vector2(0.03f, 0.03f);
 
         entity.add(componentBuilder.createBodyComponent(body, scale));
+        body.setUserData(entity);
+        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.03f, 0.03f)));
         entity.add(componentBuilder.createTextureComponent(Assets.player));
         entity.add(componentBuilder.createMoveableComponent(3f,1));
+        Vector3 cameraPosition = ProjectGame.getInstance().getGameCamera().position;
+        cameraPosition.set(body.getPosition(), cameraPosition.z);
         entity.add(componentBuilder.createCameraComponent(ProjectGame.getInstance().getGameCamera()));
         entity.add(componentBuilder.craetePlayerWeaponComponent());
         entity.add(componentBuilder.createPlayerBuildingComponent());
@@ -54,11 +59,14 @@ public class EntityBuilder {
         Entity entity = engine.createEntity();
         entity.add(componentBuilder.createEnemyComponent(followBody));
         Body body = BodyFactory.getInstance().makeEnemyBody(startPosition);
+        body.setUserData(entity);
+        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
         final Vector2 scale = new Vector2(0.05f, 0.05f);
 
         entity.add(componentBuilder.createBodyComponent(body, scale));
         entity.add(componentBuilder.createMoveableComponent(1.5f,-1));
         entity.add(componentBuilder.createTextureComponent(Assets.enemy));
+        entity.add(componentBuilder.createCollisionComponent());
 
         createHealthBall(entity, startPosition);
         return entity;

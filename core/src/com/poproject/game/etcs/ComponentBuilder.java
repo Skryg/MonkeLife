@@ -2,6 +2,7 @@ package com.poproject.game.etcs;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.ai.utils.Collision;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -68,4 +69,7 @@ public class ComponentBuilder {
         return hbc;
     }
 
+    public CollisionComponent createCollisionComponent(){
+        return engine.createComponent(CollisionComponent.class);
+    }
 }

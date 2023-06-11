@@ -4,48 +4,31 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.CollisionComponent;
+import com.poproject.game.etcs.components.EnemyComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
 import com.poproject.game.etcs.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
-    ComponentMapper<CollisionComponent> cm;
-    ComponentMapper<PlayerComponent> pm;
+    GameEngine engine;
 
     @SuppressWarnings("unchecked")
-    public CollisionSystem() {
-        // only need to worry about player collisions
-        super(Family.all(CollisionComponent.class, PlayerComponent.class).get());
-
-        cm = ComponentMapper.getFor(CollisionComponent.class);
-        pm = ComponentMapper.getFor(PlayerComponent.class);
+    public CollisionSystem(GameEngine engine) {
+        super(Family.all(CollisionComponent.class, EnemyComponent.class).get());
+        this.engine = engine;
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         // get player collision component
-        CollisionComponent cc = cm.get(entity);
-
-        Entity collidedEntity = cc.collisionEntity;
+        CollisionComponent collisionComponent = GameEngine.collisionComponentMapper.get(entity);
+        EnemyComponent enemyComponent = GameEngine.enemyComponentMapper.get(entity);
+        Entity collidedEntity = collisionComponent.collisionEntity;
         if(collidedEntity != null){
-            TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
-            if(type != null){
-                switch(type.type){
-                    case ENEMY:
-                        //do player hit enemy thing
-                        System.out.println("player hit enemy");
-                        break;
-                    case SCENERY:
-                        //do player hit scenery thing
-                        System.out.println("player hit scenery");
-                        break;
-                    case OTHER:
-                        //do player hit other thing
-                        System.out.println("player hit other");
-                        break; //technically this isn't needed
-                }
-                cc.collisionEntity = null; // collision handled reset component
-            }
+            PlayerComponent playerComponent = collidedEntity.getComponent(PlayerComponent.class);
+            playerComponent.getDamage(enemyComponent.strength*deltaTime);
+
         }
 
     }

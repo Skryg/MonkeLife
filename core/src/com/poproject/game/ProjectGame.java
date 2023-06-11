@@ -80,6 +80,10 @@ public class ProjectGame extends Game {
 	public AbstractScreen getScreen(ScreenType type){
 		return screenCache.get(type);
 	}
+	public void resetScreen(ScreenType type){
+		AbstractScreen screen = screenCache.get(type);
+		if(screen!=null) screen.reset();
+	}
 	public SpriteBatch getSpriteBatch(){return spriteBatch;}
 	public AssetManager getAssetManager(){return assetManager;}
 

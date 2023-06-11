@@ -121,4 +121,7 @@ public class PreferencesScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
     }
+
+    @Override
+    public void reset() {}
 }

@@ -1,10 +1,11 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -13,15 +14,20 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.State;
-public class PauseScreen extends AbstractScreen {
-    Stage stage;
-    ProjectGame parent;
-    public PauseScreen(ProjectGame projectGame){
+import com.poproject.game.audio.AudioManager;
+import sun.awt.AWTAccessor;
+
+public class DeathScreen extends AbstractScreen {
+
+    private final Stage stage;
+    private Label loadingText;
+    private ProjectGame parent;
+    public DeathScreen(ProjectGame projectGame){
         super(new ScreenViewport());
-        parent = projectGame;
         stage = new Stage(getScreenViewport());
+        parent = projectGame;
     }
-    @Override
+
     public void show() {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
@@ -31,53 +37,32 @@ public class PauseScreen extends AbstractScreen {
         System.out.println(stage.getActors().toString(" "));
         stage.addActor(table);
 
-        Skin skin = parent.getAssetManager().get(Assets.skinUI);
+        Skin skin = ProjectGame.getInstance().getAssetManager().get(Assets.skinUI);
 
-        TextButton newGame = new TextButton("Continue", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
         TextButton exit = new TextButton("Exit Main Menu", skin);
-
-        table.add(newGame).fillX().uniformX();
-        table.row().pad(10, 0,10,0);
-        table.add(preferences).fillX().uniformX();
+        Label label = new Label("You died! Congratulations!",skin);
+        table.add(label);
         table.row();
-        table.add(exit).fillX().uniformX();
+        table.add(exit);
 
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ProjectGame.state = State.RUNNING;
-                parent.setScreen(ScreenType.MENU);
-                parent.resetScreen(ScreenType.GAME);
-                parent.resetScreen(ScreenType.LOADING);
-
+                ProjectGame.getInstance().setScreen(ScreenType.MENU);
+                ProjectGame.getInstance().resetScreen(ScreenType.GAME);
             }
         });
 
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                resume();
-                parent.setScreen(ScreenType.LOADING);
-            }
-        });
-
-        preferences.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.setScreen(ScreenType.PREFERENCES);
-            }
-        });
     }
 
     @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+    public void render(final float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
-
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
@@ -87,9 +72,7 @@ public class PauseScreen extends AbstractScreen {
     public void pause() {}
 
     @Override
-    public void resume() {
-        ProjectGame.state = State.RUNNING;
-    }
+    public void resume() {}
 
     @Override
     public void hide() {}
@@ -100,5 +83,7 @@ public class PauseScreen extends AbstractScreen {
     }
 
     @Override
-    public void reset() {}
+    public void reset() {
+
+    }
 }
