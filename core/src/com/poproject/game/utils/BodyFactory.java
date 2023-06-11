@@ -170,6 +170,7 @@ public class BodyFactory {
         bodyDef.position.set(0,0);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
+        bodyDef.angularDamping = 0;
 
         fixtureDef.density = 1;
         fixtureDef.filter.maskBits = 0;
