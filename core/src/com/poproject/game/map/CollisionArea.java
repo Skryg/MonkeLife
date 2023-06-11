@@ -20,9 +20,6 @@ public class CollisionArea {
         this.vertices = vertices;
         for(int i = 0; i < vertices.length; i++){
             this.vertices[i] *= ProjectGame.UNIT_SCALE;
-//            if(i%2 == 0)this.vertices[i] += this.startX;
-//            else this.vertices[i] += this.startY;
-//            this.vertices[i] += 234f;
         }
     }
     public float[] getVertices() {

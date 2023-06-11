@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final OrthographicCamera gameCamera;
     private final GameEngine gameEngine;
-    private final Box2DDebugRenderer box2DDebugRenderer; //moze lepiej w scenie???
+    private final Box2DDebugRenderer box2DDebugRenderer;
     private final WorldContactListener worldContactListener;
     private final World world;
     private final Map map;

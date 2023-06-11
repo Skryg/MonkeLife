@@ -21,18 +21,20 @@ public class GameEngine extends PooledEngine {
     public static ComponentMapper<CameraComponent> cameraComponentMapper = ComponentMapper.getFor(CameraComponent.class);
     public static ComponentMapper<PlayerWeaponComponent> playerWeaponComponentMapper = ComponentMapper.getFor(PlayerWeaponComponent.class);
     private final GameScreen gameScreen;
+    private final EntityFactory entityFactory;
     private final World world;
     public GameEngine(GameScreen gameScreen) { //KeyboardController controller
 //        this.addSystem(new AnimationSystem());
 //        this.addSystem(new CollisionSystem());
         this.gameScreen = gameScreen;
         this.world = gameScreen.getWorld();
+        this.entityFactory = new EntityFactory(this);
 
         this.addSystem(new PlayerControlSystem());//controller
         this.addSystem(new CamFollowPlayerSystem());
         this.addSystem(new RenderingSystem(gameScreen.getMapRenderer(), gameScreen.getGameCamera()));
+        this.addSystem(new PlayerAttackSystem(gameScreen.getGameCamera()));
     }
-
     public void spawnPlayer(){
         Entity playerEntity = createEntity();
         Body body = BodyFactory.getInstance().makePlayerBody(new Vector2(4.5f, 3f));
@@ -59,8 +61,7 @@ public class GameEngine extends PooledEngine {
         addEntity(playerEntity);
     }
 
-
-
-
-
+    public World getWorld(){
+        return world;
+    }
 }

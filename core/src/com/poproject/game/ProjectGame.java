@@ -26,7 +26,6 @@ import java.util.EnumMap;
 
 public class ProjectGame extends Game {
 	private EnumMap<ScreenType, Screen> screenCache;
-
 	private AssetManager assetManager;
 	private OrthographicCamera gameCamera;
 	private SpriteBatch spriteBatch;
@@ -35,6 +34,7 @@ public class ProjectGame extends Game {
 
 	private static ProjectGame instance;
 	public static final float UNIT_SCALE = 1/1024f;
+	public static final short BIT_ENEMY = 1 << 1;
 	public static final short BIT_GROUND = 1 << 2;
 	public static final short BIT_PLAYER = 1 << 3;
 	public static final float FIXED_TIME_STEP = 1/60f;
@@ -83,6 +83,4 @@ public class ProjectGame extends Game {
 	public AppPreferences getPreferences(){
 		return preferences;
 	}
-
-
 }

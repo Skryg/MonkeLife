@@ -5,8 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.poproject.game.map.CollisionArea;
 
-import static com.poproject.game.ProjectGame.BIT_GROUND;
-import static com.poproject.game.ProjectGame.BIT_PLAYER;
+import static com.poproject.game.ProjectGame.*;
 
 public class BodyFactory {
 
@@ -91,7 +90,28 @@ public class BodyFactory {
 //        circleShape.dispose();
 //        return boxBody;
 //    }
+    public Body createProjectileBody(Vector2 startPos){
+        final float projectileRadius = 0.2f;
 
+        resetBodyAndFixtureDef();
+        bodyDef.position.set(startPos);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.fixedRotation = true;
+        Body projectileBody = world.createBody(bodyDef);
+
+        fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = BIT_PLAYER;
+        fixtureDef.filter.maskBits = BIT_ENEMY;
+
+        final CircleShape circleShape = new CircleShape();
+        circleShape.setRadius(projectileRadius);
+
+        fixtureDef.shape = circleShape;
+        projectileBody.createFixture(fixtureDef);
+        circleShape.dispose();
+
+        return projectileBody;
+    }
     public Body makePlayerBody(Vector2 playerStartPosition){
         resetBodyAndFixtureDef();
         bodyDef.position.set(playerStartPosition);
