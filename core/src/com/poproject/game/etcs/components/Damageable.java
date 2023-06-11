@@ -7,15 +7,13 @@ public abstract class Damageable implements Component, Pool.Poolable{
     public String name;
     public int healthPoints;
     public int strength;
-    public int speed;
     public boolean isFriendly;
     public boolean isAlive = true;
 
-    protected Damageable(String name, int hp, int strength, int speed, boolean friendly){
+    protected Damageable(String name, int hp, int strength, boolean friendly){
         this.name = name;
         this.healthPoints = hp;
         this.strength = strength;
-        this.speed = speed;
         this.isFriendly = friendly;
     }
 

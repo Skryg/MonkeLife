@@ -53,6 +53,7 @@ public class GameScreen extends AbstractScreen {
 
         gameEngine = new GameEngine(this);
         gameEngine.spawnPlayer();
+        gameEngine.spawnEnemy(new Vector2(7.5f, 3f));
         map = new Map(assetManager.get(Assets.map, TiledMap.class));
         spawnCollisionAreas();
     }

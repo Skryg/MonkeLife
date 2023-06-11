@@ -10,21 +10,31 @@ import com.poproject.game.screen.ScreenType;
 import com.poproject.game.utils.BodyFactory;
 
 public class EntityBuilder {
-    private GameEngine engine;
-    private ComponentBuilder componentBuilder;
+    private final GameEngine engine;
+    private final ComponentBuilder componentBuilder;
     public EntityBuilder(GameEngine engine){
         this.engine = engine;
         componentBuilder = new ComponentBuilder(engine);
     }
 
-    public Entity createPlayer(){
+    public Entity createPlayer(Vector2 startPosition){
         Entity entity = engine.createEntity();
         entity.add(componentBuilder.createPlayerComponent());
-        Body body = BodyFactory.getInstance().makePlayerBody(new Vector2(4.5f, 3f));
+        Body body = BodyFactory.getInstance().makePlayerBody(startPosition);
         entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.03f, 0.03f)));
         entity.add(componentBuilder.createTextureComponent(Assets.player));
+        entity.add(componentBuilder.createMoveableComponent(3f,1));
         entity.add(componentBuilder.createCameraComponent(ProjectGame.getInstance().getGameCamera()));
+        return entity;
+    }
 
+    public Entity createEnemy(Vector2 startPosition){
+        Entity entity = engine.createEntity();
+        entity.add(componentBuilder.createEnemyComponent());
+        Body body = BodyFactory.getInstance().makePlayerBody(startPosition);
+        entity.add(componentBuilder.createBodyComponent(body, new Vector2(0.05f, 0.05f)));
+        entity.add(componentBuilder.createMoveableComponent(3f,-1));
+        entity.add(componentBuilder.createTextureComponent(Assets.enemy));
         return entity;
     }
 

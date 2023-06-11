@@ -81,7 +81,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         mapRenderer.setView(cam);
         mapRenderer.render();
         // sort the renderQueue based on z index
-        renderQueue.sort(comparator);
+//        renderQueue.sort(comparator);
 
         // update camera and sprite batch
         cam.update();

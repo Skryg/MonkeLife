@@ -8,10 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
-import com.poproject.game.etcs.components.BodyComponent;
-import com.poproject.game.etcs.components.CameraComponent;
-import com.poproject.game.etcs.components.PlayerComponent;
-import com.poproject.game.etcs.components.TextureComponent;
+import com.poproject.game.etcs.components.*;
 
 public class ComponentBuilder {
     private GameEngine engine;
@@ -40,5 +37,16 @@ public class ComponentBuilder {
         CameraComponent cameraComponent = engine.createComponent(CameraComponent.class);
         cameraComponent.camera = camera;
         return cameraComponent;
+    }
+
+    public MoveableComponent createMoveableComponent(float speed, int directionScale) {
+        MoveableComponent moveableComponent = engine.createComponent(MoveableComponent.class);
+        moveableComponent.speed = speed;
+        moveableComponent.directionScale = directionScale;
+        return moveableComponent;
+    }
+
+    public EnemyComponent createEnemyComponent() {
+        return engine.createComponent(EnemyComponent.class);
     }
 }
