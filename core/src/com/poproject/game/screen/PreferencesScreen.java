@@ -15,14 +15,15 @@ import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 
 public class PreferencesScreen extends AbstractScreen {
-    private ProjectGame parent;
-    private Stage stage;
+    private final ProjectGame parent;
+    private final Stage stage;
 
-    public PreferencesScreen(ProjectGame projectGame){
+    public PreferencesScreen(ProjectGame projectGame) {
         super(new ScreenViewport());
         parent = projectGame;
         stage = new Stage(getScreenViewport());
     }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -34,33 +35,32 @@ public class PreferencesScreen extends AbstractScreen {
         stage.addActor(table);
         Skin skin = parent.getAssetManager().get(Assets.skinUI);
 
-        //volume
-        final Slider volumeMusicSlider = new Slider( 0f, 1f, 0.1f,false, skin );
-        volumeMusicSlider.setValue( parent.getPreferences().getMusicVolume() );
-        volumeMusicSlider.addListener( new EventListener() {
+        final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
+        volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
+        volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                parent.getPreferences().setMusicVolume( volumeMusicSlider.getValue() );
+                parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
                 parent.getPreferences().setMusicEnabled(true);
                 return false;
             }
         });
-        //volume
-        final Slider volumeSoundSlider = new Slider( 0f, 1f, 0.1f,false, skin );
-        volumeSoundSlider.setValue( parent.getPreferences().getSoundVolume() );
-        volumeSoundSlider.addListener( new EventListener() {
+
+        final Slider volumeSoundSlider = new Slider(0f, 1f, 0.1f, false, skin);
+        volumeSoundSlider.setValue(parent.getPreferences().getSoundVolume());
+        volumeSoundSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                parent.getPreferences().setSoundVolume( volumeSoundSlider.getValue() );
+                parent.getPreferences().setSoundVolume(volumeSoundSlider.getValue());
                 parent.getPreferences().setSoundEffectsEnabled(true);
                 return false;
             }
         });
 
         // return to main screen button
-        final TextButton backButton = new TextButton("Back", skin); // the extra argument here "small" is used to set the button to the smaller version instead of the big default version
+        final TextButton backButton = new TextButton("Back", skin);
 
-        switch (ProjectGame.state){
+        switch (ProjectGame.state) {
             case RUNNING:
                 backButton.addListener(new ChangeListener() {
                     @Override
@@ -95,6 +95,7 @@ public class PreferencesScreen extends AbstractScreen {
         table.add(backButton).colspan(2);
 
     }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
@@ -109,13 +110,16 @@ public class PreferencesScreen extends AbstractScreen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
@@ -123,5 +127,6 @@ public class PreferencesScreen extends AbstractScreen {
     }
 
     @Override
-    public void reset() {}
+    public void reset() {
+    }
 }

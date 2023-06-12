@@ -12,55 +12,42 @@ import com.poproject.game.etcs.components.ProjectileComponent;
 
 public class ProjectileSystem extends IteratingSystem {
     private final GameEngine gameEngine;
-    public ProjectileSystem(GameEngine gameEngine){
+
+    public ProjectileSystem(GameEngine gameEngine) {
         super(Family.all(ProjectileComponent.class).get());
         this.gameEngine = gameEngine;
     }
+
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         //usuwanie pocisku jak dojdzie do celu
         ProjectileComponent projectileComponent = GameEngine.projectileComponentMapper.get(entity);
         projectileComponent.flightTime += deltaTime;
-        if(projectileComponent.flightTime > projectileComponent.maxFlightTime){
+        if (projectileComponent.flightTime > projectileComponent.maxFlightTime) {
             System.out.println("Destination");
             projectileComponent.hit = true;
             gameEngine.removeEntity(entity);
             return;
         }
 
-        if(projectileComponent.hit)return;
+        if (projectileComponent.hit) return;
 
-//        System.out.println(entity.toString());
-        BodyComponent bodyComponent = GameEngine.bodyComponentComponentMapper.get(entity);//entity.getComponent(BodyComponent.class);
-        //entity.getComponent(ProjectileComponent.class);
+        BodyComponent bodyComponent = GameEngine.bodyComponentComponentMapper.get(entity);
         Body projectileBody = bodyComponent.body;
 
         //kolizje z przeciwnikami
         //collidery bardzo sie psuja, wiec robimy po staremu, czyli musza byc odpowiednio blisko siebie (hitDistance)
         final float hitDistance = 0.9f;
 
-        for(Entity enemy : gameEngine.getEntitiesFor(Family.all(EnemyComponent.class, BodyComponent.class).get())){
-//            System.out.println(enemy.toString());
-            if(GameEngine.bodyComponentComponentMapper.get(enemy).body.getPosition().sub(projectileBody.getPosition()).len() < hitDistance){
-                collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity, enemy);
+        for (Entity enemy : gameEngine.getEntitiesFor(Family.all(EnemyComponent.class, BodyComponent.class).get())) {
+            if (GameEngine.bodyComponentComponentMapper.get(enemy).body.getPosition().sub(projectileBody.getPosition()).len() < hitDistance) {
+                collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity);
                 return;
             }
         }
-//        for(Entity enemy : gameEngine.getEntitiesFor(Family.all(EnemyComponent.class, BodyComponent.class).get())){
-//            Body enemyBody = GameEngine.bodyComponentComponentMapper.get(enemy).body;
-//            for(Contact contact : WorldContactListener.contacts){
-//                Body a = contact.getFixtureA().getBody();
-//                Body b = contact.getFixtureB().getBody();
-//                if((a == enemyBody && b == projectileBody) || (a == projectileBody && b == enemyBody)){
-//                    Collision(projectileComponent, enemy.getComponent(EnemyComponent.class), entity);
-//                    return;
-//                }
-//            }
-//        }
     }
 
-    void collision(ProjectileComponent pc, Damageable dm, Entity projectileEntity, Entity damagableEntity){
-//        System.out.println("REMOVED!");
+    void collision(ProjectileComponent pc, Damageable dm, Entity projectileEntity) {
         pc.hit = true;
         dm.getDamage(pc.dmg);
         gameEngine.removeEntity(projectileEntity);

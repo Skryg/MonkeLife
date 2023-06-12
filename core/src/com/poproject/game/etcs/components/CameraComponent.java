@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class CameraComponent implements Component, Pool.Poolable {
     public Camera camera;
+
     @Override
     public void reset() {
         camera = null;

@@ -8,6 +8,7 @@ public class TowerComponent implements Component, Pool.Poolable {
     public float rechargeTime = 1.5f;
     public float timer = 0.2f;
     public float range = 5f;
+
     @Override
     public void reset() {
         lifeTime = 10f;
@@ -15,20 +16,21 @@ public class TowerComponent implements Component, Pool.Poolable {
         timer = 0f;
     }
 
-    public boolean dead(float deltaT){
+    public boolean dead(float deltaT) {
         lifeTime -= deltaT;
         return lifeTime <= 0;
     }
-    public boolean ready(float deltaT){
+
+    public boolean ready(float deltaT) {
         timer -= deltaT;
         return ready();
     }
 
-    public boolean ready(){
+    public boolean ready() {
         return timer <= 0f;
     }
 
-    public void fire(){
+    public void fire() {
         timer = rechargeTime;
     }
 }

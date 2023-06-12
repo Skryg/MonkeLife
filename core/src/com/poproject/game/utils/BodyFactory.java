@@ -8,89 +8,26 @@ import com.poproject.game.map.CollisionArea;
 import static com.poproject.game.ProjectGame.*;
 
 public class BodyFactory {
-
-    public static final int STEEL = 0;
-    public static final int WOOD = 1;
-    public static final int RUBBER = 2;
-    public static final int STONE = 3;
     public World world;
     private static BodyFactory instance;
     private static BodyDef bodyDef;
     private static FixtureDef fixtureDef;
 
-    private BodyFactory(World world){
-        this();
-        this.world = world;
-    }
-
-    private BodyFactory(){
+    private BodyFactory() {
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
     }
 
-    public static void setWorld(World world){
+    public static void setWorld(World world) {
         getInstance().world = world;
     }
 
-    public static BodyFactory getInstance(){
-        if(instance == null) instance = new BodyFactory();
+    public static BodyFactory getInstance() {
+        if (instance == null) instance = new BodyFactory();
         return instance;
     }
 
-//    public static BodyFactory getInstance(World world){
-//        if(instance == null) instance = new BodyFactory(world);
-//        return instance;
-//    }
-//
-//    public static FixtureDef makeFixture(int material, Shape shape){
-//        FixtureDef fixtureDef = new FixtureDef();
-//        fixtureDef.shape = shape;
-//
-//        switch(material){
-//            case 0:
-//                fixtureDef.density = 1f;
-//                fixtureDef.friction = 0.3f;
-//                fixtureDef.restitution = 0.1f;
-//                break;
-//            case 1:
-//                fixtureDef.density = 0.5f;
-//                fixtureDef.friction = 0.7f;
-//                fixtureDef.restitution = 0.3f;
-//                break;
-//            case 2:
-//                fixtureDef.density = 1f;
-//                fixtureDef.friction = 0f;
-//                fixtureDef.restitution = 1f;
-//                break;
-//            case 3:
-//                fixtureDef.density = 1f;
-//                fixtureDef.friction = 0.9f;
-//                fixtureDef.restitution = 0.01f;
-//                break;
-//            default:
-//                fixtureDef.density = 7f;
-//                fixtureDef.friction = 0.5f;
-//                fixtureDef.restitution = 0.3f;
-//
-//        }
-//        return fixtureDef;
-//    }
-//
-//    public Body makeCirclePolyBody(float posx, float posy, float radius, int material, BodyDef.BodyType bodyType, boolean fixedRotation){
-//        BodyDef boxBodyDef = new BodyDef();
-//        boxBodyDef.type = bodyType;
-//        boxBodyDef.position.x = posx;
-//        boxBodyDef.position.y = posy;
-//        boxBodyDef.fixedRotation = fixedRotation;
-//
-//        Body boxBody = world.createBody(boxBodyDef);
-//        CircleShape circleShape = new CircleShape();
-//        circleShape.setRadius(radius/2);
-//        boxBody.createFixture(makeFixture(material, circleShape));
-//        circleShape.dispose();
-//        return boxBody;
-//    }
-    public Body createProjectileBody(Vector2 startPos){
+    public Body createProjectileBody(Vector2 startPos) {
         final float projectileRadius = 0.2f;
 
         resetBodyAndFixtureDef();
@@ -114,7 +51,7 @@ public class BodyFactory {
         return projectileBody;
     }
 
-    public Body makeEntityBody(Vector2 startPosition, short categoryBits, short maskBits){
+    public Body makeEntityBody(Vector2 startPosition, short categoryBits, short maskBits) {
         resetBodyAndFixtureDef();
         bodyDef.position.set(startPosition);
         bodyDef.gravityScale = 1;
@@ -137,17 +74,20 @@ public class BodyFactory {
         pShape.dispose();
         return playerBody;
     }
-    public Body makeTowerBody(Vector2 position){
-        return  makeEntityBody(position, (short)0, (short)0);
-    }
-    public Body makePlayerBody(Vector2 playerStartPosition){
-        return makeEntityBody(playerStartPosition, BIT_PLAYER, (short)(BIT_GROUND | BIT_ENEMY));
+
+    public Body makeTowerBody(Vector2 position) {
+        return makeEntityBody(position, (short) 0, (short) 0);
     }
 
-    public Body makeEnemyBody(Vector2 startPos){
-        return makeEntityBody(startPos, BIT_ENEMY, (short)(BIT_GROUND | BIT_PLAYER));
+    public Body makePlayerBody(Vector2 playerStartPosition) {
+        return makeEntityBody(playerStartPosition, BIT_PLAYER, (short) (BIT_GROUND | BIT_ENEMY));
     }
-    private void createCollisionArea(CollisionArea ca){
+
+    public Body makeEnemyBody(Vector2 startPos) {
+        return makeEntityBody(startPos, BIT_ENEMY, (short) (BIT_GROUND | BIT_PLAYER));
+    }
+
+    private void createCollisionArea(CollisionArea ca) {
         resetBodyAndFixtureDef();
         bodyDef.position.set(ca.getStartX(), ca.getStartY());
         bodyDef.gravityScale = 0;
@@ -163,12 +103,14 @@ public class BodyFactory {
 
         chainShape.dispose();
     }
-    public void createCollisionAreas(Array<CollisionArea> collisionAreas){
-        for(CollisionArea ca : collisionAreas)createCollisionArea(ca);
+
+    public void createCollisionAreas(Array<CollisionArea> collisionAreas) {
+        for (CollisionArea ca : collisionAreas) createCollisionArea(ca);
     }
-    private void resetBodyAndFixtureDef(){
+
+    private void resetBodyAndFixtureDef() {
         bodyDef.gravityScale = 1;
-        bodyDef.position.set(0,0);
+        bodyDef.position.set(0, 0);
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.fixedRotation = true;
         bodyDef.angularDamping = 0;

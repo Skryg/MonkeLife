@@ -7,21 +7,20 @@ import com.badlogic.gdx.utils.Pool;
 
 public class BodyComponent implements Component, Pool.Poolable {
     public Body body;
-    public Vector2 scale = new Vector2(1,1);
+    public Vector2 scale = new Vector2(1, 1);
     public int positionZ = 0;
+
     @Override
     public void reset() {
-        if(body == null)return;
+        if (body == null) return;
         body.getWorld().destroyBody(body);
-        scale = new Vector2(1,1);
+        scale = new Vector2(1, 1);
     }
 
-    public void applySpeed(float speedX, float speedY, int scaleMulti){
-        if(speedX < 0) scale.x = Math.min(-scale.x, scale.x)*scaleMulti;
-        if(speedX > 0) scale.x = Math.max(-scale.x, scale.x)*scaleMulti;
-        body.applyLinearImpulse((speedX - body.getLinearVelocity().x)* body.getMass(),
-                (speedY - body.getLinearVelocity().y)* body.getMass(),
-                body.getWorldCenter().x, body.getWorldCenter().y, true);
+    public void applySpeed(float speedX, float speedY, int scaleMulti) {
+        if (speedX < 0) scale.x = Math.min(-scale.x, scale.x) * scaleMulti;
+        if (speedX > 0) scale.x = Math.max(-scale.x, scale.x) * scaleMulti;
+        body.applyLinearImpulse((speedX - body.getLinearVelocity().x) * body.getMass(), (speedY - body.getLinearVelocity().y) * body.getMass(), body.getWorldCenter().x, body.getWorldCenter().y, true);
     }
 }
 

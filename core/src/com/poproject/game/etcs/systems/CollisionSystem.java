@@ -8,7 +8,6 @@ import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.CollisionComponent;
 import com.poproject.game.etcs.components.EnemyComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
-import com.poproject.game.etcs.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
     GameEngine engine;
@@ -25,9 +24,9 @@ public class CollisionSystem extends IteratingSystem {
         CollisionComponent collisionComponent = GameEngine.collisionComponentMapper.get(entity);
         EnemyComponent enemyComponent = GameEngine.enemyComponentMapper.get(entity);
         Entity collidedEntity = collisionComponent.collisionEntity;
-        if(collidedEntity != null){
+        if (collidedEntity != null) {
             PlayerComponent playerComponent = collidedEntity.getComponent(PlayerComponent.class);
-            playerComponent.getDamage(enemyComponent.strength*deltaTime);
+            playerComponent.getDamage(enemyComponent.strength * deltaTime);
 
         }
 

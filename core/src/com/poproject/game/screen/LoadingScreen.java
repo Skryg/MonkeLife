@@ -1,10 +1,8 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,7 +17,8 @@ public class LoadingScreen extends AbstractScreen {
     private final AudioManager audioManager;
     private final Stage stage;
     private Label loadingText;
-    public LoadingScreen(ProjectGame context){
+
+    public LoadingScreen(ProjectGame context) {
         super(new ScreenViewport());
         stage = new Stage(getScreenViewport());
         assetManager = context.getAssetManager();
@@ -41,28 +40,32 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void render(final float delta) {
-        loadingText.setText("Loading: "+ (int)(assetManager.getProgress()*100)+"%");
-        Gdx.gl.glClearColor(0,0,0,1);
+        loadingText.setText("Loading: " + (int) (assetManager.getProgress() * 100) + "%");
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-        if(assetManager.update()) ProjectGame.getInstance().setScreen(ScreenType.GAME);
+        if (assetManager.update()) ProjectGame.getInstance().setScreen(ScreenType.GAME);
     }
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
@@ -70,5 +73,6 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
-    public void reset() {}
+    public void reset() {
+    }
 }

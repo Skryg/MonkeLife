@@ -15,17 +15,9 @@ public class AppPreferences {
         return Gdx.app.getPreferences(PREFS_NAME);
     }
 
-    public boolean isSoundEffectsEnabled() {
-        return getPrefs().getBoolean(PREF_SOUND_ENABLED, true);
-    }
-
     public void setSoundEffectsEnabled(boolean soundEffectsEnabled) {
         getPrefs().putBoolean(PREF_SOUND_ENABLED, soundEffectsEnabled);
         getPrefs().flush();
-    }
-
-    public boolean isMusicEnabled() {
-        return getPrefs().getBoolean(PREF_MUSIC_ENABLED, true);
     }
 
     public void setMusicEnabled(boolean musicEnabled) {

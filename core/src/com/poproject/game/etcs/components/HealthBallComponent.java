@@ -10,12 +10,13 @@ public class HealthBallComponent implements Pool.Poolable, Component {
     private float scaleNow = 1;
     public float health = 10;
     public float maxHealth = 10;
-    public Vector2 baseScale = new Vector2(0.2f,0.2f);
+    public Vector2 baseScale = new Vector2(0.2f, 0.2f);
+
     @Override
     public void reset() {
         scaleNow = 1f;
         health = 10;
         maxHealth = 10;
-        baseScale = new Vector2(0.2f,0.2f);
+        baseScale = new Vector2(0.2f, 0.2f);
     }
 }

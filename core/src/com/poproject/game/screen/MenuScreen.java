@@ -1,7 +1,6 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,11 +15,13 @@ import com.poproject.game.ProjectGame;
 public class MenuScreen extends AbstractScreen {
     Stage stage;
     ProjectGame parent;
-    public MenuScreen(ProjectGame projectGame){
+
+    public MenuScreen(ProjectGame projectGame) {
         super(new ScreenViewport());
         parent = projectGame;
         stage = new Stage(getScreenViewport());
     }
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -38,7 +39,7 @@ public class MenuScreen extends AbstractScreen {
         TextButton exit = new TextButton("Exit", skin);
 
         table.add(newGame).fillX().uniformX();
-        table.row().pad(10, 0,10,0);
+        table.row().pad(10, 0, 10, 0);
         table.add(preferences).fillX().uniformX();
         table.row();
         table.add(exit).fillX().uniformX();
@@ -79,13 +80,16 @@ public class MenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {

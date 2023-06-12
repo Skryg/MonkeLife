@@ -2,15 +2,10 @@ package com.poproject.game.etcs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.systems.IntervalSystem;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.BodyComponent;
 import com.poproject.game.utils.RandomVectorGenerator;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
 public class EnemyGenerateSystem extends IntervalSystem {
     GameEngine engine;
@@ -18,33 +13,29 @@ public class EnemyGenerateSystem extends IntervalSystem {
 
     int maxEnemies = 10;
 
-    public static int getEnemyCount() {
-        return enemyCount;
-    }
-
-    public static void enemyDecrementCount(){
+    public static void enemyDecrementCount() {
         --enemyCount;
     }
 
     static int enemyCount = 0;
 
 
-
-    public EnemyGenerateSystem(float interval, GameEngine engine, int maxEnemies){
+    public EnemyGenerateSystem(float interval, GameEngine engine, int maxEnemies) {
         super(interval);
         this.engine = engine;
         this.maxEnemies = maxEnemies;
         enemyCount = 0;
     }
+
     @Override
     protected void updateInterval() {
-        if(position == null){
+        if (position == null) {
             Entity player = engine.getPlayer();
-            if(player == null) return;
+            if (player == null) return;
             position = player.getComponent(BodyComponent.class).body.getPosition();
         }
         System.out.println("sth");
-        if(enemyCount <= maxEnemies){
+        if (enemyCount <= maxEnemies) {
             System.out.println("sth2");
 
             ++enemyCount;

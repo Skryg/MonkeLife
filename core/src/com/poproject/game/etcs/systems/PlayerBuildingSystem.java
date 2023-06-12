@@ -13,12 +13,12 @@ import com.poproject.game.audio.AudioType;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.etcs.components.PlayerBuildingComponent;
 import com.poproject.game.etcs.components.PlayerComponent;
-import com.poproject.game.etcs.components.PlayerWeaponComponent;
 
 public class PlayerBuildingSystem extends IteratingSystem {
     private final Camera camera;
     private final GameEngine gameEngine;
-    public PlayerBuildingSystem(Camera camera, GameEngine gameEngine){
+
+    public PlayerBuildingSystem(Camera camera, GameEngine gameEngine) {
         super(Family.all(PlayerComponent.class).get());
         this.camera = camera;
         this.gameEngine = gameEngine;
@@ -27,19 +27,19 @@ public class PlayerBuildingSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float v) {
         final PlayerBuildingComponent pbc = GameEngine.playerBuildingComponentMapper.get(entity);
-        if(pbc == null || !pbc.readyToBuild(v))return;
-        if(!Gdx.input.isButtonPressed(Input.Buttons.RIGHT))return;
+        if (pbc == null || !pbc.readyToBuild(v)) return;
+        if (!Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) return;
 
         build(pbc);
     }
 
-    private void build(PlayerBuildingComponent pbc){
+    private void build(PlayerBuildingComponent pbc) {
         gameEngine.entityBuilder.createTowerEntity(worldMousePosition().x, worldMousePosition().y);
         pbc.build();
         ProjectGame.getInstance().getAudioManager().playAudio(AudioType.TOWER);
     }
 
-    private Vector2 worldMousePosition(){
+    private Vector2 worldMousePosition() {
         Vector3 ans = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         return new Vector2(ans.x, ans.y);
     }

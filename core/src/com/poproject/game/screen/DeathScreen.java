@@ -1,7 +1,6 @@
 package com.poproject.game.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,18 +13,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.State;
-import com.poproject.game.audio.AudioManager;
-import sun.awt.AWTAccessor;
 
 public class DeathScreen extends AbstractScreen {
 
     private final Stage stage;
-    private Label loadingText;
-    private ProjectGame parent;
-    public DeathScreen(ProjectGame projectGame){
+
+    public DeathScreen(ProjectGame projectGame) {
         super(new ScreenViewport());
         stage = new Stage(getScreenViewport());
-        parent = projectGame;
     }
 
     public void show() {
@@ -40,7 +35,7 @@ public class DeathScreen extends AbstractScreen {
         Skin skin = ProjectGame.getInstance().getAssetManager().get(Assets.skinUI);
 
         TextButton exit = new TextButton("Exit Main Menu", skin);
-        Label label = new Label("You died! Congratulations!",skin);
+        Label label = new Label("You died! Congratulations!", skin);
         table.add(label);
         table.row();
         table.add(exit);
@@ -58,24 +53,28 @@ public class DeathScreen extends AbstractScreen {
 
     @Override
     public void render(final float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {

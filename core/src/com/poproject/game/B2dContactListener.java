@@ -13,84 +13,83 @@ import com.poproject.game.etcs.components.PlayerComponent;
 
 public class B2dContactListener implements ContactListener {
 
-        public B2dContactListener(){
-        }
+    public B2dContactListener() {
+    }
 
-        @Override
-        public void beginContact(Contact contact) {
-//            System.out.println("Contact");
-            Fixture fa = contact.getFixtureA();
-            Fixture fb = contact.getFixtureB();
-//            System.out.println(fa.getBody().getType()+" has hit "+ fb.getBody().getType());
+    @Override
+    public void beginContact(Contact contact) {
+        Fixture fa = contact.getFixtureA();
+        Fixture fb = contact.getFixtureB();
 
-            if(fa.getBody().getUserData() instanceof Entity
-                    && fb.getBody().getUserData() instanceof Entity) {
-                Entity a = (Entity) fa.getBody().getUserData();
-                Entity b = (Entity) fb.getBody().getUserData();
+        if (fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity) {
+            Entity a = (Entity) fa.getBody().getUserData();
+            Entity b = (Entity) fb.getBody().getUserData();
 
-                PlayerComponent pc = a.getComponent(PlayerComponent.class);
-                EnemyComponent ec = b.getComponent(EnemyComponent.class);
-                if(pc == null || ec == null){
-                    pc = b.getComponent(PlayerComponent.class);
-                    ec = a.getComponent(EnemyComponent.class);
-                    Entity temp = a;
-                    a = b;
-                    b = temp;
-                }
+            PlayerComponent pc = a.getComponent(PlayerComponent.class);
+            EnemyComponent ec = b.getComponent(EnemyComponent.class);
+            if (pc == null || ec == null) {
+                pc = b.getComponent(PlayerComponent.class);
+                ec = a.getComponent(EnemyComponent.class);
+                Entity temp = a;
+                a = b;
+                b = temp;
+            }
 
-                if(pc != null && ec != null){
-                    entityCollision(a,b);
-                }
+            if (pc != null && ec != null) {
+                entityCollision(a, b);
             }
         }
+    }
 
-        private void entityCollision(Entity player, Entity enemy) {
-            CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
+    private void entityCollision(Entity player, Entity enemy) {
+        CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
 
-            if(colb != null){
-                System.out.println("PLAYER START CONTACT");
+        if (colb != null) {
+            System.out.println("PLAYER START CONTACT");
 
-                colb.collisionEntity = player;
+            colb.collisionEntity = player;
+        }
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+        Fixture fa = contact.getFixtureA();
+        Fixture fb = contact.getFixtureB();
+        if (fa.getBody().getUserData() instanceof Entity && fb.getBody().getUserData() instanceof Entity) {
+            Entity a = (Entity) fa.getBody().getUserData();
+            Entity b = (Entity) fb.getBody().getUserData();
+
+            PlayerComponent pc = a.getComponent(PlayerComponent.class);
+            EnemyComponent ec = b.getComponent(EnemyComponent.class);
+            if (pc == null || ec == null) {
+                pc = b.getComponent(PlayerComponent.class);
+                ec = a.getComponent(EnemyComponent.class);
+                Entity temp = a;
+                a = b;
+                b = temp;
+            }
+
+            if (pc != null && ec != null) {
+                entityEndCollision(a, b);
             }
         }
-        @Override
-        public void endContact(Contact contact) {
-            Fixture fa = contact.getFixtureA();
-            Fixture fb = contact.getFixtureB();
-            if(fa.getBody().getUserData() instanceof Entity
-                    && fb.getBody().getUserData() instanceof Entity) {
-                Entity a = (Entity) fa.getBody().getUserData();
-                Entity b = (Entity) fb.getBody().getUserData();
+    }
 
-                PlayerComponent pc = a.getComponent(PlayerComponent.class);
-                EnemyComponent ec = b.getComponent(EnemyComponent.class);
-                if(pc == null || ec == null){
-                    pc = b.getComponent(PlayerComponent.class);
-                    ec = a.getComponent(EnemyComponent.class);
-                    Entity temp = a;
-                    a = b;
-                    b = temp;
-                }
+    private void entityEndCollision(Entity player, Entity enemy) {
+        CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
 
-                if(pc != null && ec != null){
-                    entityEndCollision(a,b);
-                }
-            }
+        if (colb != null) {
+            System.out.println("PLAYER END CONTACT");
+            colb.collisionEntity = null;
         }
+    }
 
-        private void entityEndCollision(Entity player, Entity enemy){
-            CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+    }
 
-            if(colb != null){
-                System.out.println("PLAYER END CONTACT");
-                colb.collisionEntity = null;
-            }
-        }
-        @Override
-        public void preSolve(Contact contact, Manifold oldManifold) {
-        }
-        @Override
-        public void postSolve(Contact contact, ContactImpulse impulse) {
-        }
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+    }
 
 }
