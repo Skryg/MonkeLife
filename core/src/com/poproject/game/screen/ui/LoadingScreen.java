@@ -1,28 +1,24 @@
-package com.poproject.game.screen;
+package com.poproject.game.screen.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
 import com.poproject.game.audio.AudioManager;
+import com.poproject.game.screen.ScreenType;
 
-public class LoadingScreen extends AbstractScreen {
+public class LoadingScreen extends UIScreen {
     private final AssetManager assetManager;
     private final AudioManager audioManager;
-    private final Stage stage;
     private Label loadingText;
 
-    public LoadingScreen(ProjectGame context) {
-        super(new ScreenViewport());
-        stage = new Stage(getScreenViewport());
-        assetManager = context.getAssetManager();
-        audioManager = context.getAudioManager();
+    public LoadingScreen(ProjectGame projectGame) {
+        super(projectGame);
+        assetManager = projectGame.getAssetManager();
+        audioManager = projectGame.getAudioManager();
     }
 
     public void show() {
@@ -40,39 +36,9 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void render(final float delta) {
+        super.render(delta);
         loadingText.setText("Loading: " + (int) (assetManager.getProgress() * 100) + "%");
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
 
         if (assetManager.update()) ProjectGame.getInstance().setScreen(ScreenType.GAME);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-    }
-
-    @Override
-    public void reset() {
     }
 }

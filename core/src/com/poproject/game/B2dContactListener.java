@@ -45,8 +45,6 @@ public class B2dContactListener implements ContactListener {
         CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
 
         if (colb != null) {
-            System.out.println("PLAYER START CONTACT");
-
             colb.collisionEntity = player;
         }
     }
@@ -79,7 +77,6 @@ public class B2dContactListener implements ContactListener {
         CollisionComponent colb = enemy.getComponent(CollisionComponent.class);
 
         if (colb != null) {
-            System.out.println("PLAYER END CONTACT");
             colb.collisionEntity = null;
         }
     }

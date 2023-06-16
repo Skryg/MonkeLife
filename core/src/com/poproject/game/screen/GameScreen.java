@@ -18,6 +18,8 @@ import com.poproject.game.*;
 import com.poproject.game.etcs.GameEngine;
 import com.poproject.game.map.CollisionArea;
 import com.poproject.game.map.Map;
+import com.poproject.game.screen.AbstractScreen;
+import com.poproject.game.screen.ScreenType;
 import com.poproject.game.utils.BodyFactory;
 
 import static com.poproject.game.ProjectGame.*;
@@ -30,12 +32,13 @@ public class GameScreen extends AbstractScreen {
     private final Map map;
     private float accumulator;
 
-    public GameScreen(final ProjectGame context) {
-        super(new FitViewport(16, 9, new OrthographicCamera()));
-        ProjectGame.getInstance().setGameCamera((OrthographicCamera) getScreenViewport().getCamera());
+    public GameScreen(final ProjectGame projectGame) {
+        super(new FitViewport(16, 9, new OrthographicCamera()),projectGame);
+
+        projectGame.setGameCamera((OrthographicCamera) getScreenViewport().getCamera());
         accumulator = 0f;
-        assetManager = context.getAssetManager();
-        mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, context.getSpriteBatch());
+        assetManager = projectGame.getAssetManager();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, projectGame.getSpriteBatch());
 
         world = new World(new Vector2(0, 0f), false);
         BodyFactory.setWorld(world);
@@ -74,10 +77,9 @@ public class GameScreen extends AbstractScreen {
                     world.step(FIXED_TIME_STEP, 6, 2);
                     accumulator -= FIXED_TIME_STEP;
                 }
-
                 break;
             case PAUSE:
-                ProjectGame.getInstance().setScreen(ScreenType.PAUSE);
+                projectGame.setScreen(ScreenType.PAUSE);
                 break;
         }
     }
@@ -88,13 +90,13 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void pause() {
-        state = State.PAUSE;
+        super.pause();
         ProjectGame.getInstance().getAudioManager().playAudio(AudioType.NONE);
     }
 
     @Override
     public void resume() {
-        state = State.RUNNING;
+        super.resume();
         ProjectGame.getInstance().getAudioManager().playAudio(AudioType.MAINTHEME);
     }
 
