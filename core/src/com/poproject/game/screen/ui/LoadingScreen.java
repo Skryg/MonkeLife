@@ -22,12 +22,9 @@ public class LoadingScreen extends UIScreen {
     }
 
     public void show() {
+        super.show();
         Gdx.input.setInputProcessor(null);
-        stage.clear();
         Skin skin = assetManager.get(Assets.skinUI);
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
         loadingText = new Label("Loading: ", skin);
         table.add(loadingText);
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -18,6 +19,7 @@ import com.poproject.game.screen.ScreenType;
 
 public abstract class UIScreen extends AbstractScreen {
     protected Stage stage;
+    protected Table table;
 
     UIScreen(ProjectGame projectGame) {
         super(new ScreenViewport(), projectGame);
@@ -49,6 +51,15 @@ public abstract class UIScreen extends AbstractScreen {
 
     @Override
     public void resume() {
+    }
+
+    @Override
+    public void show(){
+        Gdx.input.setInputProcessor(stage);
+        stage.clear();
+        table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
     }
 
     protected TextButton createExitGameButton(Skin skin) {

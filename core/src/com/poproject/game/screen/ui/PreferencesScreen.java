@@ -16,12 +16,7 @@ public class PreferencesScreen extends UIScreen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-        stage.clear();
-
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
+        super.show();
         Skin skin = projectGame.getAssetManager().get(Assets.skinUI);
 
         final Slider volumeMusicSlider = createMusicVolumeSlider(skin);

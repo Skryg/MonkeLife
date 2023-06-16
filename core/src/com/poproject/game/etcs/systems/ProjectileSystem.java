@@ -24,7 +24,6 @@ public class ProjectileSystem extends IteratingSystem {
         ProjectileComponent projectileComponent = GameEngine.projectileComponentMapper.get(entity);
         projectileComponent.flightTime += deltaTime;
         if (projectileComponent.flightTime > projectileComponent.maxFlightTime) {
-            System.out.println("Destination");
             projectileComponent.hit = true;
             gameEngine.removeEntity(entity);
             return;
@@ -51,6 +50,5 @@ public class ProjectileSystem extends IteratingSystem {
         pc.hit = true;
         dm.getDamage(pc.dmg);
         gameEngine.removeEntity(projectileEntity);
-
     }
 }

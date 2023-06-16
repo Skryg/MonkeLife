@@ -15,12 +15,7 @@ public class MenuScreen extends UIScreen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-        stage.clear();
-        Table table = new Table();
-        table.setFillParent(true);
-        System.out.println(stage.getActors().toString(" "));
-        stage.addActor(table);
+        super.show();
 
         Skin skin = projectGame.getAssetManager().get(Assets.skinUI);
 

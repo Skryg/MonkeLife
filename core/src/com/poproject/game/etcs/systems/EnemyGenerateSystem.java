@@ -16,9 +16,7 @@ public class EnemyGenerateSystem extends IntervalSystem {
     public static void enemyDecrementCount() {
         --enemyCount;
     }
-
     static int enemyCount = 0;
-
 
     public EnemyGenerateSystem(float interval, GameEngine engine, int maxEnemies) {
         super(interval);
@@ -34,10 +32,8 @@ public class EnemyGenerateSystem extends IntervalSystem {
             if (player == null) return;
             position = player.getComponent(BodyComponent.class).body.getPosition();
         }
-        System.out.println("sth");
-        if (enemyCount <= maxEnemies) {
-            System.out.println("sth2");
 
+        if (enemyCount <= maxEnemies) {
             ++enemyCount;
             engine.spawnEnemy(RandomVectorGenerator.getNotClose(position, 3));
         }
