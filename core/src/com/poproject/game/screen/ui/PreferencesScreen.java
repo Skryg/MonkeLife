@@ -1,12 +1,10 @@
 package com.poproject.game.screen.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.poproject.game.Assets;
 import com.poproject.game.ProjectGame;
-import com.poproject.game.State;
 import com.poproject.game.screen.ScreenType;
 
 public class PreferencesScreen extends UIScreen {
